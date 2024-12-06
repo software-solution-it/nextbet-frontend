@@ -88,17 +88,17 @@ const GameList = ({ selectedSubCategory, onGameSelect }) => {
             <button
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
-              className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50"
+              className="px-4 py-2 rounded bg-green-400 hover:bg-gray-600 disabled:opacity-50"
             >
               Anterior
             </button>
-            <span className="text-black font-bold">
+            <span className="text-white font-bold">
               Página {currentPage} de {totalPages}
             </span>
             <button
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50"
+              className="px-4 py-2 rounded bg-green-400 hover:bg-gray-600 disabled:opacity-50"
             >
               Próximo
             </button>
