@@ -1,0 +1,97 @@
+/* Contêiner principal */
+.hero-banner {
+    position: relative;
+    max-width: 100%;
+    height: 400px; /* Ajuste conforme necessário */
+    margin: 0 auto;
+    padding: 40px 0;
+    overflow: hidden;
+    perspective: 200px;
+  }
+  
+  /* Container dos cards */
+  .cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    gap: 130px; /* Adiciona espaçamento entre os cards */
+  }
+  
+  /* Cards */
+  .card-wrapper {
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease-in-out, z-index 0s linear 0.2s; /* Delay de 0.5s no z-index */
+    width: 700px; /* Tamanho fixo do card */
+    height: 100%; /* Ocupa toda a altura do contêiner */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centraliza o conteúdo */
+    margin: 0 20px; /* Adiciona margem lateral entre os cards */
+    opacity: 0;
+  }
+  
+  /* Card Central (Ativo) */
+  .card-wrapper.active {
+    opacity: 1;
+    transform: translateX(0) scale(1.1); /* Card central se expande */
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+  
+  /* Card à Esquerda */
+  .card-wrapper.side.left {
+    opacity: 0.7;
+    transform: translateX(-70%) rotateY(25deg) scale(0.9);
+    box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Card à Direita */
+  .card-wrapper.side.right {
+    opacity: 0.7;
+    transform: translateX(70%) rotateY(-25deg) scale(0.9);
+    box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Cards Ocultos */
+  .card-wrapper.hidden {
+    opacity: 0;
+    z-index: 5;
+    transform: translateX(200%) scale(0.8);
+  }
+  
+  /* Cards Móveis */
+  @media (max-width: 768px) {
+    .card-wrapper {
+      width: 200px; /* Ajuste para dispositivos móveis */
+    }
+  }
+  
+  .card-content {
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease-in-out;
+    transform-origin: center;
+    position: relative;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra todo o card */
+    border-radius: 10px;
+  }
+  
+  .card-title {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 0, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+  }
+  
