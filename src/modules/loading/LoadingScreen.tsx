@@ -1,5 +1,5 @@
 import React from "react";
-const Logo = "/assets/Logo.png";
+const Logo = "/assets/logo.png";
 
 const LoadingScreen = () => {
   return (

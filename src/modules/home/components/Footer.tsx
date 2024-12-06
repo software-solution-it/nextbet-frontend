@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
-const logo = "/assets/Logo.png";
+const logo = "/assets/logo.png";
 
 const Footer = () => {
   return (

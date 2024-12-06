@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { FaEye, FaEyeSlash, FaTimes } from "react-icons/fa";
-const Logo = "/assets/Logo.png";
+const Logo = "/assets/logo.png";
 import RegistrationForm from "./RegistrationForm";
 import { postMemberLogin } from "../../services/service"; // Importa o serviço de login
 

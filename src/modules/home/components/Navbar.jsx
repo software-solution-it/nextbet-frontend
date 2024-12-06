@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-const Logo = "/assets/Logo.png";
+const Logo = "/assets/logo.png";
 import LoginModal from "./LoginModal";
 
 const Navbar = ({ categories, setSelectedCategory, selectedCategory, onLogin }) => {
