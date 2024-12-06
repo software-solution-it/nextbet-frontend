@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaWallet, FaUserCircle, FaKey, FaGift } from "react-icons/fa";
 const Logo = "/assets/logo.png";
-import ReactModal from "react-modal";
 import WalletModal from "./WalletModal";
 import { getMemberBalance } from "../../services/service"; // Importando o serviço para obter o saldo do usuário
 

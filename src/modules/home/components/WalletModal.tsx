@@ -244,276 +244,297 @@ function handleWithdraw() {
         </button>
 
         {currentStep === 1 && (
-          <div className="space-y-8">
-            <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-              <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-4">
-                <div>
-                  <p className="text-sm text-gray-400">BRL</p>
-                  <p className="text-4xl font-bold">
-                    R$ {balanceData.balance.toFixed(2)}
-                  </p>
-                </div>
-                <div className="flex space-x-4">
-                  <button
-                    onClick={() => setCurrentStep(2)}
-                    className="bg-green-600 py-2 px-6 rounded text-white font-semibold hover:bg-green-500 transition"
-                  >
-                    Depositar
-                  </button>
-                  <button onClick={() => setCurrentStep(4)} className="bg-gray-500 py-2 px-6 rounded text-gray-300 font-semibold hover:bg-gray-400 transition">
-                    Sacar
-                  </button>
-                </div>
-              </div>
-            </div>
+  <div className="space-y-8">
+    <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+      <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-700 pb-4 mb-4">
+        <div className="text-center sm:text-left">
+          <p className="text-xs sm:text-sm text-gray-400">BRL</p>
+          <p className="text-3xl sm:text-4xl font-bold my-3">
+            R$ {balanceData.balance.toFixed(2)}
+          </p>
+        </div>
+        <div className="flex sm:flex-row gap-4">
+          <button
+            onClick={() => setCurrentStep(2)}
+            className="bg-green-600 py-2 px-6 rounded text-white font-semibold hover:bg-green-500 transition w-full sm:w-auto"
+          >
+            Depositar
+          </button>
+          <button
+            onClick={() => setCurrentStep(4)}
+            className="bg-gray-500 py-2 px-6 rounded text-gray-300 font-semibold hover:bg-gray-400 transition w-full sm:w-auto"
+          >
+            Sacar
+          </button>
+        </div>
+      </div>
+    </div>
 
-            <div className="bg-gray-800 rounded-lg p-6 shadow-lg flex flex-col md:flex-row gap-6">
-              <div className="flex-1">
-                <div className="flex justify-between items-center mb-2">
-                  <p className="text-sm text-gray-400">BÔNUS</p>
-                  <span className="bg-green-500 text-white py-1 px-3 rounded-full text-xs">
-                    Informação
-                  </span>
-                </div>
-                <p className="text-4xl font-bold">
-                  B$ {balanceData.bonus.toFixed(2)}
-                </p>
-                <p className="text-sm text-gray-400 mt-2">
-                  Rollover cassino ou esportes ainda não definido.
-                </p>
-                <div className="flex space-x-4 mt-4">
-                  <button className="bg-green-600 py-2 px-6 rounded text-white font-semibold hover:bg-green-500 transition">
-                    Acessar Jogos
-                  </button>
-                  <button className="bg-gray-500 py-2 px-6 rounded text-gray-300 font-semibold hover:bg-gray-400 transition">
-                    Sacar Bônus
-                  </button>
-                </div>
-              </div>
+    <div className="bg-gray-800 rounded-lg p-6 shadow-lg flex flex-col sm:flex-row gap-6">
+      <div className="flex-1">
+        <div className="flex justify-between items-center mb-2">
+          <p className="text-xs sm:text-sm text-gray-400">BÔNUS</p>
+          <span className="bg-green-500 text-white py-1 px-3 rounded-full text-xs sm:text-sm">
+            Informação
+          </span>
+        </div>
+        <p className="text-3xl sm:text-4xl font-bold">
+          B$ {balanceData.bonus.toFixed(2)}
+        </p>
+        <p className="text-xs sm:text-sm text-gray-400 mt-2">
+          Rollover cassino ou esportes ainda não definido.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <button className="bg-green-600 py-2 px-6 rounded text-white font-semibold hover:bg-green-500 transition">
+            Acessar Jogos
+          </button>
+          <button className="bg-gray-500 py-2 px-6 rounded text-gray-300 font-semibold hover:bg-gray-400 transition">
+            Sacar Bônus
+          </button>
+        </div>
+      </div>
 
-              <div className="hidden md:block w-[3px] bg-gray-500"></div>
+      <div className="hidden sm:block w-[3px] bg-gray-500"></div>
 
-              <div className="w-full md:w-[40%] bg-gray-700 rounded-lg p-4 h-full flex flex-col justify-between">
-                <p className="text-yellow-500 font-semibold text-sm">
-                  Rollover
-                </p>
-                <div className="text-sm text-gray-400 mb-4">
-                  <p className="flex justify-between">
-                    <span>Valor apostado</span>
-                    <span>
-                      R$ {balanceData.rollover.bet_amount.toFixed(2)} / R${" "}
-                      {balanceData.rollover.required_amount.toFixed(2)}
-                    </span>
-                  </p>
-                  <div className="bg-gray-600 h-2 rounded-full overflow-hidden">
-                    <div
-                      className="bg-yellow-500 h-2"
-                      style={{
-                        width: `${
-                          (balanceData.rollover.bet_amount /
-                            balanceData.rollover.required_amount) *
-                          100
-                        }%`,
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="text-sm text-gray-400">
-                  <p className="flex justify-between">
-                    <span>Rodadas jogadas</span>
-                    <span>
-                      {balanceData.rollover.rounds_played} /{" "}
-                      {balanceData.rollover.total_rounds_required}
-                    </span>
-                  </p>
-                  <div className="bg-gray-600 h-2 rounded-full overflow-hidden">
-                    <div
-                      className="bg-yellow-500 h-2"
-                      style={{
-                        width: `${
-                          (balanceData.rollover.rounds_played /
-                            balanceData.rollover.total_rounds_required) *
-                          100
-                        }%`,
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="w-full sm:w-[40%] bg-gray-700 rounded-lg p-4 h-full flex flex-col justify-between">
+        <p className="text-yellow-500 font-semibold text-xs sm:text-sm">
+          Rollover
+        </p>
+        <div className="text-xs sm:text-sm text-gray-400 mb-4">
+          <p className="flex justify-between">
+            <span>Valor apostado</span>
+            <span>
+              R$ {balanceData.rollover.bet_amount.toFixed(2)} / R${" "}
+              {balanceData.rollover.required_amount.toFixed(2)}
+            </span>
+          </p>
+          <div className="bg-gray-600 h-2 rounded-full overflow-hidden">
+            <div
+              className="bg-yellow-500 h-2"
+              style={{
+                width: `${
+                  (balanceData.rollover.bet_amount /
+                    balanceData.rollover.required_amount) *
+                  100
+                }%`,
+              }}
+            ></div>
           </div>
-        )}
-
-        {currentStep === 2 && (
-          <div className="space-y-6">
-            <button
-              onClick={handleBack}
-              className="text-green-600 hover:text-gray-300 text-xl font-bold transition"
-            >
-              &larr; Voltar
-            </button>
-
-            <h2 className="text-2xl font-bold">Depositar</h2>
-            <p className="text-gray-400">Adicione saldo à sua conta</p>
-            <div className="flex space-x-4">
-              {["Digitopay"].map((method) => (
-                <button
-                  key={method}
-                  onClick={() => setSelectedPaymentMethod(method)}
-                  className={`py-2 px-4 rounded text-white font-semibold transition ${
-                    selectedPaymentMethod === method
-                      ? "bg-green-500"
-                      : "bg-green-600 hover:bg-green-500"
-                  }`}
-                >
-                  {method}
-                </button>
-              ))}
-            </div>
-            <div className="bg-green-800 p-4 rounded-lg">
-              <p className="text-green-400">
-                Realize seu primeiro depósito e se divirta com até 80 Giros no
-                Tigrinho!
-              </p>
-              <p className="text-green-400 text-lg font-bold mt-2">
-                {formatTime(timeLeft)}
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-gray-400">Método de Pagamento</p>
-                <div className="bg-gray-700 py-2 px-4 rounded">
-                  {selectedPaymentMethod || "Selecione um método"}
-                </div>
-              </div>
-              <div>
-                <p className="text-gray-400">Depósito Mínimo</p>
-                <div className="bg-gray-700 py-2 px-4 rounded">
-                  R$ {minimumDeposit}
-                </div>
-              </div>
-            </div>
-            <div>
-              <p className="text-gray-400">Valor a ser depositado:</p>
-              <input
-                type="text"
-                value={depositValue}
-                onChange={(e) => handleDepositValueChange(e.target.value)}
-                placeholder={`Valor mínimo: R$ ${minimumDeposit}`}
-                className="bg-gray-800 text-white py-2 px-4 w-full rounded"
-              />
-              {errorMessage && (
-                <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
-              )}
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                "R$ 20",
-                "R$ 50",
-                "R$ 100",
-                "R$ 250",
-                "R$ 500",
-                "R$ 1.000",
-              ].map((value) => {
-                return (
-                  <button
-                    key={value}
-                    onClick={() =>
-                      handleDepositValueChange(value.replace("R$ ", ""))
-                    }
-                    className="bg-gray-800 text-white py-2 px-4 rounded hover:bg-green-600 transition relative"
-                  >
-                    {value}
-                    <span className="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-1 py-0.5 rounded">
-                      HOT
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-            <button
-              onClick={handleGeneratePayment}
-              className="bg-green-600 py-3 px-6 rounded w-full text-white font-semibold hover:bg-green-500 transition disabled:bg-gray-500 disabled:cursor-not-allowed"
-              disabled={
-                !selectedPaymentMethod ||
-                parseFloat(depositValue) < minimumDeposit
-              }
-            >
-              DEPOSITAR
-            </button>
+        </div>
+        <div className="text-xs sm:text-sm text-gray-400">
+          <p className="flex justify-between">
+            <span>Rodadas jogadas</span>
+            <span>
+              {balanceData.rollover.rounds_played} /{" "}
+              {balanceData.rollover.total_rounds_required}
+            </span>
+          </p>
+          <div className="bg-gray-600 h-2 rounded-full overflow-hidden">
+            <div
+              className="bg-yellow-500 h-2"
+              style={{
+                width: `${
+                  (balanceData.rollover.rounds_played /
+                    balanceData.rollover.total_rounds_required) *
+                  100
+                }%`,
+              }}
+            ></div>
           </div>
-        )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
-        {currentStep === 3 && (
-          <>
-            <div className="flex justify-between items-center mb-6">
-              <button
-                onClick={handleBack}
-                className="text-green-600 hover:text-gray-300 text-xl font-bold transition"
-              >
-                &larr; Voltar
-              </button>
-            </div>
-            <div className="space-y-6 text-center">
-              <p className="text-gray-300 text-lg">
-                Escaneie a imagem para realizar o pagamento
-              </p>
-              <div className="flex justify-center">
-                <div className="bg-white p-4 rounded-lg shadow-md">
-                  {qrCodeBase64 && (
-                    <img
-                      src={`data:image/png;base64,${qrCodeBase64}`}
-                      alt="QR Code"
-                      className="w-48 h-48"
-                    />
-                  )}
-                </div>
-              </div>
-              <p className="text-yellow-500 text-sm mt-4">
-                Depósitos são aceitos apenas de contas bancárias com o mesmo CPF
-                do titular da conta.
-              </p>
-              <div className="bg-gray-800 p-6 rounded-lg">
-                <p className="text-3xl font-bold text-green-500 mb-4">
-                  R$ {depositValue}
-                </p>
-                <input
-                  className="bg-gray-700 text-white text-center w-full py-3 px-4 rounded text-lg"
-                  value={pixCopiaECola}
-                  readOnly
-                />
-                <button
-                  className="bg-green-600 text-white text-lg px-5 py-3 rounded mt-3 hover:bg-green-500 transition"
-                  onClick={copyToClipboard}
-                >
-                  Copiar Código "copia e cola"
-                </button>
-                {showCopiedMessage && (
-                  <p className="text-green-500 text-sm mt-2">
-                    Código copiado com sucesso!
-                  </p>
-                )}
-              </div>
-              <div>
-                <p className="text-gray-300 text-lg">
-                  O tempo para você pagar acaba em:
-                </p>
-                <p className="text-3xl text-green-500 font-bold">
-                  {formatTime(timeLeft)}
-                </p>
-                <div className="bg-gray-700 h-2 rounded-full overflow-hidden mt-2">
-                  <div
-                    className="bg-green-500 h-2"
-                    style={{ width: `${(timeLeft / 600) * 100}%` }}
-                  ></div>
-                </div>
-              </div>
-              <button className="bg-green-600 py-3 px-6 rounded w-full text-lg text-white font-bold hover:bg-green-500 transition">
-                Já paguei o pix
-              </button>
-            </div>
-          </>
+
+{currentStep === 2 && (
+  <div className="space-y-6 px-6 sm:px-12">
+    <button
+      onClick={handleBack}
+      className="text-green-600 hover:text-gray-300 text-lg sm:text-xl font-bold transition"
+    >
+      &larr; Voltar
+    </button>
+
+    <h2 className="text-2xl sm:text-3xl font-bold">Depositar</h2>
+    <p className="text-gray-400 text-sm sm:text-base">Adicione saldo à sua conta</p>
+
+    <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+      {["Digitopay"].map((method) => (
+        <button
+          key={method}
+          onClick={() => setSelectedPaymentMethod(method)}
+          className={`py-2 px-6 rounded text-white font-semibold transition w-full sm:w-auto ${
+            selectedPaymentMethod === method
+              ? "bg-green-500"
+              : "bg-green-600 hover:bg-green-500"
+          }`}
+        >
+          {method}
+        </button>
+      ))}
+    </div>
+
+    <div className="bg-green-800 p-4 rounded-lg">
+      <p className="text-green-400 text-sm sm:text-base">
+        Realize seu primeiro depósito e se divirta com até 80 Giros no Tigrinho!
+      </p>
+      <p className="text-green-400 text-lg sm:text-xl font-bold mt-2">
+        {formatTime(timeLeft)}
+      </p>
+    </div>
+
+    {/* Ajuste para Depósito Mínimo e Método de Pagamento */}
+    <div className="flex flex-col sm:grid sm:grid-cols-2 gap-6">
+  <div>
+    <p className="text-gray-400 text-sm sm:text-base">Método de Pagamento</p>
+    <div className="bg-gray-700 py-3 px-6 rounded text-sm sm:text-base">
+      {selectedPaymentMethod || "Selecione um método"}
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <p className="text-gray-400 text-sm sm:text-base">Depósito Mínimo</p>
+    <div className="bg-gray-700 py-3 px-6 rounded text-sm sm:text-base">
+      R$ {minimumDeposit}
+    </div>
+  </div>
+</div>
+
+
+    {/* Input para valor do depósito */}
+    <div>
+      <p className="text-gray-400 text-sm sm:text-base">Valor a ser depositado:</p>
+      <input
+        type="text"
+        value={depositValue}
+        onChange={(e) => handleDepositValueChange(e.target.value)}
+        placeholder={`Valor mínimo: R$ ${minimumDeposit}`}
+        className="bg-gray-800 text-white py-3 px-6 w-full rounded text-sm sm:text-base"
+      />
+      {errorMessage && (
+        <p className="text-red-500 text-sm sm:text-base mt-2">{errorMessage}</p>
+      )}
+    </div>
+
+    {/* Lista de valores apenas visível no desktop */}
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 hidden sm:block">
+  {[
+    "R$ 20",
+    "R$ 50",
+    "R$ 100",
+    "R$ 250",
+    "R$ 500",
+    "R$ 1.000",
+  ].map((value) => {
+    return (
+      <button
+        key={value}
+        onClick={() =>
+          handleDepositValueChange(value.replace("R$ ", ""))
+        }
+        className="bg-gray-800 mx-2 my-2 text-white py-3 px-6 rounded hover:bg-green-600 transition relative"
+      >
+        {value}
+        <span className="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-1 py-0.5 rounded">
+          HOT
+        </span>
+      </button>
+    );
+  })}
+</div>
+
+
+    <button
+      onClick={handleGeneratePayment}
+      className="bg-green-600 py-3 px-6 rounded w-full text-white font-semibold hover:bg-green-500 transition disabled:bg-gray-500 disabled:cursor-not-allowed"
+      disabled={
+        !selectedPaymentMethod || parseFloat(depositValue) < minimumDeposit
+      }
+    >
+      DEPOSITAR
+    </button>
+  </div>
+)}
+
+
+{currentStep === 3 && (
+  <>
+    <div className="flex justify-between items-center mb-6">
+      <button
+        onClick={handleBack}
+        className="text-green-600 hover:text-gray-300 text-xl font-bold transition"
+      >
+        &larr; Voltar
+      </button>
+    </div>
+    <div className="space-y-6 text-center">
+      <p className="text-gray-300 text-lg sm:text-base">
+        Escaneie a imagem para realizar o pagamento
+      </p>
+
+      {/* QR Code - visível apenas em tablets/desktops */}
+      <div className="flex justify-center">
+        <div className="bg-white p-4 rounded-lg shadow-md hidden sm:block">
+          {qrCodeBase64 && (
+            <img
+              src={`data:image/png;base64,${qrCodeBase64}`}
+              alt="QR Code"
+              className="w-32 h-32 sm:w-48 sm:h-48"  // Ajuste para mobile
+            />
+          )}
+        </div>
+      </div>
+
+      {/* No mobile, escondendo esta informação */}
+      <p className="text-yellow-500 text-sm mt-4 hidden sm:block">
+        Depósitos são aceitos apenas de contas bancárias com o mesmo CPF
+        do titular da conta.
+      </p>
+
+      <div className="bg-gray-800 p-6 rounded-lg">
+        <p className="text-3xl sm:text-2xl font-bold text-green-500 mb-4">
+          R$ {depositValue}
+        </p>
+        <input
+          className="bg-gray-700 text-white text-center w-full py-3 px-4 rounded text-lg sm:text-base"
+          value={pixCopiaECola}
+          readOnly
+        />
+        <button
+          className="bg-green-600 text-white text-lg sm:text-base px-5 py-3 rounded mt-3 hover:bg-green-500 transition"
+          onClick={copyToClipboard}
+        >
+          Copiar Código "copia e cola"
+        </button>
+        {showCopiedMessage && (
+          <p className="text-green-500 text-sm mt-2">
+            Código copiado com sucesso!
+          </p>
         )}
+      </div>
+
+      <div>
+        <p className="text-gray-300 text-lg sm:text-base">
+          O tempo para você pagar acaba em:
+        </p>
+        <p className="text-3xl sm:text-2xl text-green-500 font-bold">
+          {formatTime(timeLeft)}
+        </p>
+        <div className="bg-gray-700 h-2 rounded-full overflow-hidden mt-2">
+          <div
+            className="bg-green-500 h-2"
+            style={{ width: `${(timeLeft / 600) * 100}%` }}
+          ></div>
+        </div>
+      </div>
+      <button className="bg-green-600 py-3 px-6 rounded w-full text-lg sm:text-base text-white font-bold hover:bg-green-500 transition">
+        Já paguei o pix
+      </button>
+    </div>
+  </>
+)}
 
 {currentStep === 4 && (
   <div className="space-y-6">

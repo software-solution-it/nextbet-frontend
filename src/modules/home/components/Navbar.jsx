@@ -12,10 +12,9 @@ const Navbar = forwardRef(
 
     const handleCategoryClick = (category) => {
       setSelectedCategory(category);
-      setIsMenuOpen(false); // Fecha o menu ao clicar em uma categoria no mobile
+      setIsMenuOpen(false);
     };
 
-    // Expondo funções para o HomePage via ref
     useImperativeHandle(ref, () => ({
       openLoginModal(registering = false) {
         setIsRegistering(registering);
@@ -25,9 +24,7 @@ const Navbar = forwardRef(
 
     return (
       <>
-        {/* Navbar principal */}
         <nav className="bg-gray-900 py-4 px-6 flex items-center fixed top-0 left-0 w-full z-50">
-          {/* Botão de menu sanduíche no tablet/mobile */}
           <div className="md:hidden">
             <button
               className="text-white hover:text-gray-300"
@@ -50,12 +47,10 @@ const Navbar = forwardRef(
             </button>
           </div>
 
-          {/* Logo centralizada para todas as telas */}
           <div className="flex-shrink-0 flex-1 flex justify-center md:justify-start">
             <img src={Logo} alt="Logo" className="h-10 w-auto" />
           </div>
 
-          {/* Menu centralizado para desktop */}
           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
             <ul className="flex gap-6">
               {categories.map((category) => (
@@ -72,13 +67,12 @@ const Navbar = forwardRef(
             </ul>
           </div>
 
-          {/* Botões de login e registro no lado direito */}
           <div className="hidden md:flex md:flex-shrink-0 gap-4 ml-auto">
             <button
               className="bg-green-500 text-white py-2 px-10 rounded hover:bg-green-600"
               onClick={() => {
                 setIsLoginModalOpen(true);
-                setIsRegistering(false); // Exibe o login
+                setIsRegistering(false); 
               }}
             >
               Entrar
@@ -87,7 +81,7 @@ const Navbar = forwardRef(
               className="text-green-500 border border-green-500 text-black py-2 px-10 rounded bg-white hover:bg-green-500 hover:text-white"
               onClick={() => {
                 setIsLoginModalOpen(true);
-                setIsRegistering(true); // Exibe o registro
+                setIsRegistering(true); 
               }}
             >
               Registrar
@@ -95,7 +89,6 @@ const Navbar = forwardRef(
           </div>
         </nav>
 
-        {/* Menu lateral (Drawer) para tablet/mobile */}
         <div
           className={`fixed top-0 left-0 h-full w-64 bg-gray-800 z-40 shadow-lg transition-transform duration-500 ease-in-out transform ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -106,7 +99,7 @@ const Navbar = forwardRef(
               className="text-white absolute top-4 right-4"
               onClick={() => setIsMenuOpen(false)}
             >
-              &times; {/* Ícone de fechar */}
+              &times; 
             </button>
             <ul className="space-y-6">
               {categories.map((category) => (
@@ -125,7 +118,7 @@ const Navbar = forwardRef(
                   className="mt-4 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
                   onClick={() => {
                     setIsLoginModalOpen(true);
-                    setIsRegistering(false); // Exibe o login
+                    setIsRegistering(false); 
                   }}
                 >
                   Entrar
@@ -136,7 +129,7 @@ const Navbar = forwardRef(
                   className="mt-4 w-full border border-green-500 text-green-500 bg-white py-2 rounded hover:bg-green-500 hover:text-white"
                   onClick={() => {
                     setIsLoginModalOpen(true);
-                    setIsRegistering(true); // Exibe o registro
+                    setIsRegistering(true); 
                   }}
                 >
                   Registrar
@@ -146,7 +139,6 @@ const Navbar = forwardRef(
           </div>
         </div>
 
-        {/* Modal de Login */}
         <div
           className={`fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity duration-300 ${
             isLoginModalOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -158,11 +150,10 @@ const Navbar = forwardRef(
             onClose={() => setIsLoginModalOpen(false)}
             isRegistering={isRegistering}
             setIsRegistering={setIsRegistering}
-            onLogin={onLogin} // Passar função para o modal
+            onLogin={onLogin} 
           />
         </div>
 
-        {/* Background de overlay para o menu lateral */}
         {isMenuOpen && (
           <div
             className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-30 md:hidden transition-opacity duration-300"

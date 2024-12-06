@@ -34,7 +34,7 @@ const GameCategories = ({ selectedCategory, selectedSubCategory, setSelectedSubC
 
   return (
     <div
-      className={`flex justify-center gap-4 py-4 transition-opacity duration-700 ${
+      className={`flex justify-center items-center gap-2 py-4 transition-opacity duration-700 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -42,13 +42,14 @@ const GameCategories = ({ selectedCategory, selectedSubCategory, setSelectedSubC
         <button
           key={subcategory}
           onClick={() => handleClick(subcategory)}
-          className={`py-2 px-4 rounded text-white hover:text-green-500 
-                border-b-2 transition-all duration-300
+          className={`py-2 px-6 rounded text-white hover:text-green-500 
+                border-b-2 transition-all duration-300 text-base
                 ${
                   selectedSubCategory === subcategory
                     ? "text-green-500 border-green-500"
                     : "border-transparent"
                 }`}
+          style={{ minWidth: "120px" }} // Garantindo que todos os botões tenham o mesmo tamanho mínimo
         >
           {subcategory}
         </button>
