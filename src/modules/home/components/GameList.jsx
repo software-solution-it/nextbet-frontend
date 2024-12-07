@@ -22,7 +22,7 @@ const GameList = ({ selectedSubCategory, onGameSelect }) => {
     setTimeout(async () => {
       try {
         let newGames = [];
-        if (selectedSubCategory === "Hot") {
+        if (selectedSubCategory === "HOT") {
           const response = await getMemberSlotHotGame(); // Chama o endpoint
           if (response.status) {
             newGames = response.data.data.d;
@@ -132,38 +132,38 @@ const GameList = ({ selectedSubCategory, onGameSelect }) => {
         }`}
       >
         {displayedGames.length > 0 ? (
-          displayedGames.map((game) => (
+         displayedGames.map((game) => (
+          <div
+            key={game.id}
+            className="relative text-center rounded-lg shadow-lg transition-transform transform hover:scale-105 border-4 border-transparent hover:border-green-600 overflow-hidden cursor-pointer"
+            style={{
+              height: "auto", // Ajusta automaticamente a altura
+              aspectRatio: "1 / 1.2", // Proporção altura/largura (funciona nos navegadores modernos)
+              transition: "transform 0.3s ease-in-out",
+            }}
+            onClick={() => handlePlayClick(game)}
+          >
+            <div className="w-full h-full overflow-hidden rounded-t-lg">
+              <img
+                src={game.image || game.img}
+                alt={game.en_name}
+                className="w-full h-full object-cover"
+              />
+            </div>
             <div
-              key={game.id}
-              className="relative text-center rounded-lg shadow-lg transition-transform transform hover:scale-105 border-4 border-transparent hover:border-green-600 overflow-hidden cursor-pointer"
-              style={{
-                height: "250px", // Diminuindo a altura do card em dispositivos menores
-                transition: "transform 0.3s ease-in-out",
-              }}
-              onClick={() => handlePlayClick(game)}
+              className="absolute bottom-0 left-0 w-full bg-green-600 flex items-center justify-center rounded-b-lg"
+              style={{ height: "50px" }} // Altura do título
             >
-              <div className="w-full h-full overflow-hidden rounded-t-lg">
-                <img
-                  src={game.image || game.img}
-                  alt={game.en_name}
-                  className="w-full h-full object-cover"
-                  style={{ height: "calc(100% - 50px)" }}
-                />
-              </div>
-              <div
-                className="absolute bottom-0 left-0 w-full bg-green-600 flex items-center justify-center rounded-b-lg"
-                style={{ height: "40px" }} // Reduzindo a altura do título em dispositivos menores
-              >
-                <p className="font-medium text-white text-xs md:text-sm lg:text-base">{game.en_name}</p>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-white text-black hover:scale-110 transform transition-transform duration-300">
-                  <FaPlay className="text-2xl md:text-3xl text-green-500" style={{ marginLeft: "2px" }} />
-                </div>
+              <p className="font-medium text-white text-xs md:text-sm lg:text-base">{game.en_name}</p>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-white text-black hover:scale-110 transform transition-transform duration-300">
+                <FaPlay className="text-2xl md:text-3xl text-green-500" style={{ marginLeft: "2px" }} />
               </div>
             </div>
-          ))
-        ) : (
+          </div>
+        ))
+      ) : (
           <div className="flex flex-col items-center justify-center h-[300px]">
             <p className="text-white text-lg">Não há jogos disponíveis para esta subcategoria.</p>
           </div>

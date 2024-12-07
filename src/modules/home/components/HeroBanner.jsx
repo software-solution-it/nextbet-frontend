@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import "./HeroBanner.css"; // Estilos atualizados
+import "./HeroBanner.css"; // Certifique-se de que os estilos atualizados estão neste arquivo
 
 const HeroBanner = ({ selectedCategory }) => {
   const [cards, setCards] = useState([]);
@@ -8,48 +8,47 @@ const HeroBanner = ({ selectedCategory }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const cardsByCategory = {
-    "Cassino": [
+    Cassino: [
       {
         id: 1,
         title: "",
         image:
-          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewDesktop/2024-11-07T16:45:21.730Z.webp",
+          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewMobile/2024-11-07T17:10:23.543Z.webp",
       },
       {
         id: 2,
         title: "",
         image:
-          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewDesktop/2024-11-07T16:45:21.730Z.webp",
+          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewMobile/2024-11-07T17:10:13.369Z.webp",
       },
       {
         id: 3,
         title: "",
         image:
-          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewDesktop/2024-11-07T16:45:21.730Z.webp",
+          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewMobile/2024-11-07T17:10:24.860Z.webp",
       },
     ],
     "Ao Vivo": [
-      {
+           {
         id: 4,
-        title: "Ao Vivo 1",
+        title: "",
         image:
-          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewDesktop/2024-11-07T16:45:21.730Z.webp",
+          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewMobile/2024-11-07T17:10:23.543Z.webp",
       },
       {
         id: 5,
-        title: "Ao Vivo 2",
+        title: "",
         image:
-          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewDesktop/2024-11-07T16:45:21.730Z.webp",
+          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewMobile/2024-11-07T17:10:13.369Z.webp",
       },
       {
         id: 6,
-        title: "Ao Vivo 3",
+        title: "",
         image:
-          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewDesktop/2024-11-07T16:45:21.730Z.webp",
+          "https://pixbet.com.br/cdn-cgi/image/quality=30,format=avif/https://assets.pixbet.com.br/previewMobile/2024-11-07T17:10:24.860Z.webp",
       },
     ],
   };
-  
 
   useEffect(() => {
     setIsTransitioning(true);
@@ -65,20 +64,26 @@ const HeroBanner = ({ selectedCategory }) => {
   }, [selectedCategory]);
 
   useEffect(() => {
-    if (cards.length > 1) {
+    if (cards.length > 1 && !isTransitioning) {
       const transitionTimeout = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
           setIsTransitioning(false);
-        }, 500); // Ajuste o tempo de transição conforme necessário
-      }, 2000); // Intervalo de tempo antes de trocar o card
+        }, 500); // Tempo de transição
+      }, 2000); // Intervalo entre as transições
 
       return () => clearTimeout(transitionTimeout);
     }
-  }, [currentIndex, cards.length]);
+  }, [currentIndex, cards.length, isTransitioning]);
 
   const handleCardClick = (index) => {
+    if (index !== currentIndex) {
+      setCurrentIndex(index);
+    }
+  };
+
+  const handleDotClick = (index) => {
     if (index !== currentIndex) {
       setCurrentIndex(index);
     }
@@ -118,12 +123,25 @@ const HeroBanner = ({ selectedCategory }) => {
                   alt={card.title}
                   className="card-image"
                 />
-                <div className="card-title">{card.title}</div>
+                {card.title && <div className="card-title">{card.title}</div>}
               </div>
             </div>
           );
         })}
       </div>
+      
+      {/* Bolinhas de navegação para mobile */}
+      {cards.length > 1 && (
+        <div className="navigation-dots">
+          {cards.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${index === currentIndex ? "active" : ""}`}
+              onClick={() => handleDotClick(index)}
+            ></span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

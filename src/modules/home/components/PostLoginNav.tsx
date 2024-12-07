@@ -80,7 +80,7 @@ const PostLoginNav = ({ categories, selectedCategory, setSelectedCategory, onLog
           <div className="flex items-center gap-4 md:hidden">
             <div className="flex items-center bg-gray-800 text-white py-2 px-4 rounded-full">
               <FaWallet className="text-lg mr-2" />
-              <span className="font-semibold">R$ {balance.toFixed(2)}</span>
+              <span className="font-semibold">R$ {balance ? balance.toFixed(2) : "0.00"}</span>
             </div>
           </div>
           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
@@ -101,7 +101,7 @@ const PostLoginNav = ({ categories, selectedCategory, setSelectedCategory, onLog
           <div className="hidden md:flex items-center gap-4 ml-auto">
             <div onClick={openWalletModal} className="flex items-center bg-gray-800 text-white py-2 px-4 rounded-full cursor-pointer">
               <FaWallet className="text-lg mr-2" />
-              <span className="font-semibold">R$ {balance.toFixed(2)}</span>
+              <span className="font-semibold">R$ {balance ? balance.toFixed(2) : "0.00"}</span>
             </div>
             <button
               onClick={toggleProfileSubMenu}

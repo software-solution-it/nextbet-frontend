@@ -6,6 +6,7 @@
   padding: 40px 0;
   overflow: hidden;
   perspective: 200px;
+  z-index: 0; /* Cria um stacking context para todos os cards */
 }
 
 .cards-container {
@@ -15,12 +16,13 @@
   position: relative;
   height: 100%;
   gap: 130px;
+  z-index: 0; /* Garantir contexto de empilhamento */
 }
 
 .card-wrapper {
   position: absolute;
   cursor: pointer;
-  transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease-in-out, z-index 0s linear 0.2s;
+  transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease-in-out;
   width: 700px;
   height: 100%;
   display: flex;
@@ -28,30 +30,34 @@
   align-items: center;
   margin: 0 20px;
   opacity: 0;
+  z-index: 1; /* Base */
 }
 
 .card-wrapper.active {
   opacity: 1;
   transform: translateX(0) scale(1.1);
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  z-index: 3; /* Card central acima de todos */
 }
 
 .card-wrapper.side.left {
-  opacity: 0.7;
+  opacity: 1;
   transform: translateX(-70%) rotateY(25deg) scale(0.9);
   box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.3);
+  z-index: 2; /* Cards laterais abaixo do ativo */
 }
 
 .card-wrapper.side.right {
-  opacity: 0.7;
+  opacity: 1;
   transform: translateX(70%) rotateY(-25deg) scale(0.9);
   box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.3);
+  z-index: 2; /* Cards laterais abaixo do ativo */
 }
 
 .card-wrapper.hidden {
   opacity: 0;
-  z-index: 5;
   transform: translateX(200%) scale(0.8);
+  z-index: 0; /* Cartas escondidas ficam no fundo */
 }
 
 @media (max-width: 1920px) {
@@ -68,7 +74,7 @@
 
 @media (max-width: 1024px) {
   .card-wrapper {
-    width: 90%;
+    width: 100%;
     max-width: 400px;
   }
 }
@@ -78,37 +84,57 @@
     gap: 0;
   }
 
-  /* Remover display: none e usar transições suaves de opacidade */
   .card-wrapper {
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    position: absolute; /* para sobrepor cards, se necessário */
+    position: absolute;
     top: 0;
     left: 45%;
     transform: translateX(-50%) scale(1);
-    opacity: 0; /* Todos começam invisíveis */
-    pointer-events: none; /* Impedir interação quando invisível */
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
   }
 
   .card-wrapper.active {
     opacity: 1;
     pointer-events: auto; 
     transform: translateX(-50%) scale(1);
+    z-index: 3;
   }
 
-  /* Você pode deixar as classes "side left", "side right" e "hidden" 
-     com transformações mínimas, apenas para referência visual, 
-     ou simplesmente mantê-las iguais ao estado base, pois no mobile 
-     a ideia é apresentar apenas um card ativo de cada vez */
   .card-wrapper.side.left,
   .card-wrapper.side.right,
   .card-wrapper.hidden {
     opacity: 0;
     pointer-events: none;
-    /* Transform pode ser removido ou ajustado, 
-       mas não é necessário se quiser que simplesmente fiquem ocultos */
     transform: translateX(-50%) scale(1);
+    z-index: 0;
   }
 }
+
+.navigation-dots {
+  display: none; /* Oculta por padrão */
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.navigation-dots .dot {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navigation-dots .dot.active {
+  background-color: rgba(255, 255, 255, 1);
+}
+
 .card-content {
   width: 100%;
   height: 100%;
@@ -117,11 +143,17 @@
   position: relative;
 }
 
+.card-wrapper.side.left, .card-wrapper.side.right {
+  box-shadow: none;
+}
+
 .card-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
+  border: none;
+  box-shadow: none;
 }
 
 .card-title {

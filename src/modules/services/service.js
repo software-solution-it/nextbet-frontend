@@ -53,6 +53,16 @@ export const launchGame = async (gameId) => {
   }
 };
 
+export const getGameProvider = async () => {
+  try {
+    const response = await api.post('/games/providers');
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar o provedor de jogo:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
 // Evento: Informações do bônus de bloqueio de carteira
 export const getMemberEventWalletLockBonusInfo = async () => {
   return await api.get('/event/member/wallet/lock/bonus/info');
