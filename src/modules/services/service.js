@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:2764';
+const API_BASE_URL = 'https://api.nextbet.games';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -72,7 +72,9 @@ export const getGamesByProvider = async (distribution) => {
     }
 
     // Faz a chamada para obter os jogos de um provedor específico
-    const response = await api.post(`/games/list?distribution=${distribution}`);
+    const response = await api.post(`/games/list?distribution=distribution`, {
+      params: { distribution }, // Passa o parâmetro pela query string
+    });
 
     const games = response.data?.data || [];
     return games; // Retorna a lista de jogos
