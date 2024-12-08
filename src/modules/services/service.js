@@ -72,9 +72,7 @@ export const getGamesByProvider = async (distribution) => {
     }
 
     // Faz a chamada para obter os jogos de um provedor específico
-    const response = await api.post(`/games/list?distribution=distribution`, {
-      params: { distribution }, // Passa o parâmetro pela query string
-    });
+    const response = await api.post(`/games/list?distribution=${distribution}`);
 
     const games = response.data?.data || [];
     return games; // Retorna a lista de jogos
