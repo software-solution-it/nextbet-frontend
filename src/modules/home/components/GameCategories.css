@@ -1,0 +1,27 @@
+/* Personaliza o scroll */
+div {
+    scrollbar-width: thin; /* Suporte para navegadores modernos */
+    scrollbar-color: #4ade80 #1f2937; /* Cor da barra e do fundo */
+  }
+  
+  div::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+  }
+  
+  div::-webkit-scrollbar-thumb {
+    background-color: #4ade80; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Arredonda a barra */
+  }
+  
+  div::-webkit-scrollbar-track {
+    background-color: #1f2937; /* Fundo do trilho */
+  }
+  
+  /* Ajusta o texto dentro das caixinhas */
+  .card-text {
+    font-size: 0.875rem; /* Reduz o tamanho da fonte */
+    text-overflow: ellipsis; /* Trunca o texto se não couber */
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden; /* Oculta texto excedente */
+  }
+  

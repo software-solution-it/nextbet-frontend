@@ -1,162 +1,152 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import {
+  FaFire,
+  FaPlusSquare,
+  FaCoins,
+  FaThList,
+  FaPuzzlePiece,
+} from "react-icons/fa";
+import { IconContext } from "react-icons";
+import { getGameProviders } from "../../services/service"; // Importe a função para buscar os provedores
+import './GameCategories.css'
+
+const iconMapping = {
+  HOT: FaFire,
+  "Novos Jogos": FaPlusSquare,
+  "Maiores Recompensas": FaCoins,
+  "Todos os Provedores": FaThList,
+};
 
 const GameCategories = ({
   selectedSubCategory,
   setSelectedSubCategory,
   subcategories,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "center", loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [providers, setProviders] = useState([]);
 
-  // Ajuste responsivo do número de itens por página
+  const handleOpenProvidersModal = async () => {
+    try {
+      const data = await getGameProviders();
+      setProviders(data);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Erro ao buscar provedores:", error.message);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleProviderClick = (provider) => {
+    console.log("Provedor selecionado:", provider);
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setItemsPerPage(2); // Telas menores: 2 itens
-      } else {
-        setItemsPerPage(3); // Telas maiores: 3 itens
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const totalPages = Math.ceil(subcategories.length / itemsPerPage);
-
-  useEffect(() => {
-    if (subcategories.length > 0) {
-      setSelectedSubCategory(subcategories[0]);
-    } else {
-      setSelectedSubCategory(null);
+    const newIndex = subcategories.indexOf(selectedSubCategory);
+    if (newIndex !== -1) {
+      setSelectedIndex(newIndex);
+      emblaApi?.scrollTo(newIndex);
     }
-
-    setIsVisible(false);
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [subcategories, setSelectedSubCategory]);
-
-  const handleClick = (subcategory) => {
-    setSelectedSubCategory(subcategory);
-  };
-
-  // Função auxiliar para transição suave de página
-  const changePageWithTransition = (newPage) => {
-    setIsVisible(false);
-    setTimeout(() => {
-      setCurrentPage(newPage);
-      setIsVisible(true);
-    }, 300); // Ajuste o tempo conforme necessário
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 0) {
-      changePageWithTransition(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages - 1) {
-      changePageWithTransition(currentPage + 1);
-    }
-  };
-
-  const currentSubcategories = subcategories.slice(
-    currentPage * itemsPerPage,
-    currentPage * itemsPerPage + itemsPerPage
-  );
+  }, [selectedSubCategory, subcategories, emblaApi]);
 
   return (
-    <div className="relative py-4">
-      <h2 className="text-center text-green-600 font-bold text-lg mb-4">Subcategorias</h2>
+    <div className="py-2 px-4 md:px-20 lg:px-40 relative">
+      <IconContext.Provider value={{ size: "1.2em" }}>
+        <div className="embla mx-auto max-w-full" ref={emblaRef}>
+          <div className="embla__container flex justify-start">
+            {subcategories.map((subcategory, index) => {
+              const IconComponent = iconMapping[subcategory] || FaPuzzlePiece;
+              const isSelected = index === selectedIndex;
+              return (
+                <div
+                  key={subcategory}
+                  className="embla__slide flex-none px-0.5"
+                  style={{ width: window.innerWidth < 640 ? "120px" : "160px" }}
+                >
+                  <button
+                    onClick={
+                      subcategory === "Todos os Provedores"
+                        ? handleOpenProvidersModal
+                        : () => emblaApi?.scrollTo(index)
+                    }
+                    className={`flex flex-col items-center justify-center w-full rounded-lg transition-colors duration-300 ${
+                      isSelected
+                        ? "bg-green-500 border-2 border-green-700"
+                        : "bg-gray-800 hover:bg-gray-700 border-2 border-transparent"
+                    }`}
+                    style={{
+                      height: window.innerWidth < 640 ? "60px" : "80px",
+                    }}
+                  >
+                    <div className="mb-1">
+                      <IconComponent />
+                    </div>
+                    <span className="text-white text-xs uppercase">
+                      {subcategory}
+                    </span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </IconContext.Provider>
 
-      <div
-        className={`flex items-center justify-center gap-4 transition-opacity duration-500 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {/* Botão Anterior */}
-        <button
-          onClick={handlePrevPage}
-          disabled={currentPage === 0}
-          className={`text-white bg-gray-800 p-2 rounded-full shadow-md transition-colors duration-300 ${
-            currentPage === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-700 cursor-pointer"
-          }`}
-          title="Página anterior"
-          style={{ flexShrink: 0 }}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+          onClick={handleCloseModal}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-
-        {/* Subcategorias com tamanho fixo */}
-        {currentSubcategories.map((subcategory) => (
-          <button
-            key={subcategory}
-            onClick={() => handleClick(subcategory)}
-            className={`rounded text-white hover:text-green-500 border-b-2 transition-all duration-300 text-base uppercase cursor-pointer ${
-              selectedSubCategory === subcategory
-                ? "text-green-500 border-green-500"
-                : "border-transparent"
-            }`}
+          <div
+            className="bg-gray-900 p-6 rounded-lg w-full max-w-3xl relative"
             style={{
-              width: "180px", // Tamanho fixo para largura
-              height: "50px", // Altura fixa
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              maxHeight: "80vh",
+              minHeight: "300px",
+              overflowY: "scroll", // Corrigido para adicionar rolagem ao modal
             }}
+            onClick={(e) => e.stopPropagation()} // Impede o fechamento ao clicar dentro do modal
           >
-            {subcategory}
-          </button>
-        ))}
-
-        {/* Botão Próximo */}
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages - 1}
-          className={`text-white bg-gray-800 p-2 rounded-full shadow-md transition-colors duration-300 ${
-            currentPage === totalPages - 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-700 cursor-pointer"
-          }`}
-          title="Próxima página"
-          style={{ flexShrink: 0 }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
+            <button
+              className="absolute top-4 right-4 text-green-500 hover:text-green-300"
+              onClick={handleCloseModal}
+            >
+              X
+            </button>
+            <h2 className="text-lg font-bold text-white mb-4 text-center">
+              Todos os Provedores
+            </h2>
+            <div
+              className="grid gap-6"
+              style={{
+                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                width: "100%",
+              }}
+            >
+              {providers.map((provider) => (
+                <div
+                  key={provider.distribution}
+                  className="relative flex items-center justify-center text-center p-4 rounded-lg bg-gray-800 hover:cursor-pointer transition transform hover:scale-105"
+                  style={{ height: "80px" }}
+                  onClick={() => handleProviderClick(provider)}
+                >
+                  <span className="text-white text-sm font-bold card-text">
+                    {provider.distribution}
+                  </span>
+                  <div className="absolute inset-0 rounded-lg border-2 border-transparent transition hover:border-green-500"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
-
-GameCategories.propTypes = {
-  selectedSubCategory: PropTypes.string,
-  setSelectedSubCategory: PropTypes.func.isRequired,
-  subcategories: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default GameCategories;

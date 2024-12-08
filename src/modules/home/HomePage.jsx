@@ -1,3 +1,4 @@
+// HomePage.js
 import { useState, useEffect, useRef } from "react";
 import Navbar from "./components/Navbar";
 import PostLoginNav from "./components/PostLoginNav";
@@ -9,7 +10,7 @@ import Footer from "./components/Footer";
 import { launchGame } from "../services/service";
 
 const categories = ["Cassino", "Ao Vivo", "Esportes"];
-const subcategories = ["HOT", "Novos Jogos", "Maiores Recompensas", "Todos os Jogos"];
+const subcategories = ["HOT", "Novos Jogos", "Maiores Recompensas", "Todos os Provedores"];
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
@@ -114,7 +115,6 @@ const HomePage = () => {
       <div className="pt-20 h-full overflow-auto">
         <HeroBanner selectedCategory={selectedCategory} />
         <GameCategories
-          selectedCategory={selectedCategory}
           selectedSubCategory={selectedSubCategory}
           setSelectedSubCategory={setSelectedSubCategory}
           subcategories={subcategories}

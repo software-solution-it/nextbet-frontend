@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://api.nextbet.games';
+const API_BASE_URL = 'http://localhost:2764';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -50,6 +50,38 @@ export const launchGame = async (gameId) => {
   } catch (error) {
     console.error('Erro ao lançar o jogo:', error.response?.data || error.message);
     throw error; 
+  }
+};
+
+export const getGameProviders = async () => {
+  try {
+    // Faz a chamada para obter os provedores
+    const response = await api.post('/games/providers');
+    const providers = response.data?.data || [];
+    return providers; // Retorna a lista de provedores
+  } catch (error) {
+    console.error('Erro ao buscar provedores:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getGamesByProvider = async (distribution) => {
+  try {
+    if (!distribution) {
+      throw new Error("O parâmetro 'distribution' é obrigatório.");
+    }
+
+    // Faz a chamada para obter os jogos de um provedor específico
+    const response = await api.post(`/games/list?distribution=${distribution}`);
+
+    const games = response.data?.data || [];
+    return games; // Retorna a lista de jogos
+  } catch (error) {
+    console.error(
+      `Erro ao buscar jogos para o provedor ${distribution}:`,
+      error.response?.data || error.message
+    );
+    throw error;
   }
 };
 
