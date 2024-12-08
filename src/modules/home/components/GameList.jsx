@@ -37,7 +37,7 @@ const GameList = ({ onGameSelect }) => {
         ...prev,
         {
           providerName: currentProvider.distribution,
-          games: response.slice(0, 12), // Apenas os primeiros 12 jogos
+          games: response.slice(0, 100), // Apenas os primeiros 12 jogos
           totalGames: response.length, // Total de jogos disponíveis
         },
       ]);
