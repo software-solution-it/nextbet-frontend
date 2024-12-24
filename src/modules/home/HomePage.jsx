@@ -131,7 +131,7 @@ const HomePage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -426,7 +426,7 @@ const HomePage = () => {
         </div>
         <Footer />
       </div>
-      <div className="fixed bottom-20  right-4 flex flex-col space-y-4 z-25 items-center">
+      <div style={{zIndex:999}} className="fixed bottom-20  right-4 flex flex-col space-y-4 items-center">
         <div
           className="flex flex-col items-center transition-transform duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
           onClick={openRewardModal}
