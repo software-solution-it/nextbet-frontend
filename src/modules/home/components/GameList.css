@@ -1,175 +1,164 @@
-/* Layout principal */
-.game-list {
-    padding: 32px 16px;
+/* Estilo geral do cartão */
+.game-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1f2937;
+  cursor: pointer;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+/* Imagem do jogo */
+.game-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: filter 0.1s ease, transform 0.3s ease;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.game-card:hover .game-image {
+  filter: blur(3px);
+  transform: scale(1.05);
+}
+
+/* Sobreposição do cartão */
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.circle-container {
+  background-color: green; /* Cor de fundo verde */
+  border-radius: 50%; /* Tornar o fundo circular */
+  padding: 15px; /* Ajuste o tamanho do círculo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Adiciona um efeito de hover */
+.circle-container:hover {
+  background-color: darkgreen; /* Torna o círculo mais escuro ao passar o mouse */
+}
+
+.group:hover .game-overlay {
+  opacity: 1;
+}
+
+/* Ícone de "play" */
+.play-icon {
+  position: relative;
+  transform: scale(0);
+  transition: transform 0.1s ease-in-out;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.group:hover .play-icon {
+  transform: scale(1);
+}
+
+/* Nome do jogo */
+.game-name {
+  font-size: 12px;
+  text-align: center;
+  color: #d1d5db; /* Cor neutra */
+  margin-top: 8px;
+}
+
+/* Ícones de Favorito */
+.favorite-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.game-card:hover .favorite-icon {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Estilos para ambas as estrelas */
+.empty-star,
+.filled-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Estrela Vazia */
+.empty-star {
+  color: #ccc;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.empty-star.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Estrela Preenchida */
+.filled-star {
+  color: gold;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.filled-star.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+
+/* Texto de "Jogar" */
+.game-play-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  transition: opacity 0.3s ease;
+}
+
+.group:hover .game-play-text {
+  opacity: 1;
+}
+
+/* Animação de rotação lenta */
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  /* Barra de pesquisa */
-  .filter-bar {
-    margin-bottom: 16px;
+  100% {
+    transform: rotate(360deg);
   }
-  
-  .search-input-container {
-    position: relative;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 8px 16px 8px 40px;
-    border: 1px solid #4b5563;
-    border-radius: 8px;
-    background-color: #1f2937;
-    color: white;
-  }
-  
-  .search-icon {
-    position: absolute;
-    top: 50%;
-    left: 16px;
-    transform: translateY(-50%);
-    color: #16a34a;
-  }
-  
-  /* Header do provedor */
-  .provider-header {
-    display: flex; /* Usa flexbox para alinhamento */
-    justify-content: space-between; /* Espaço entre título e botão */
-    align-items: center; /* Alinha verticalmente */
-    margin-bottom: 16px;
-    flex-wrap: wrap; /* Permite que os elementos se ajustem */
-    gap: 8px; /* Espaço entre título e botão em telas pequenas */
-  }
-  
-  .provider-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    flex-shrink: 0; /* Impede que o título encolha */
-  }
-  
-  .provider-button {
-    background-color: #505050;
-    color: #ffffff;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: background-color 0.3s;
-    white-space: nowrap; /* Impede quebra de linha */
-    flex-shrink: 0; /* Impede que o botão encolha */
-  }
-  
-  .provider-button:hover {
-    background-color: #15803d;
-  }
-  
-  /* Grid de jogos */
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-  }
-  
-  /* Cartão do jogo */
-  .game-card {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #1f2937;
-    cursor: pointer;
-    transition: transform 0.3s, border-color 0.3s;
-    border: 2px solid transparent;
-  }
-  
-  .game-card:hover {
-    transform: scale(1.05);
-    border-color: #ffffff;
-  }
-  
-  .game-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-  
-  .game-name {
-    margin-top: 8px;
-    font-size: 0.875rem;
-    color: #d1d5db;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  
-  /* Overlay de hover no cartão */
-  .game-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  .group:hover .game-overlay {
-    opacity: 1;
-  }
-  
-  /* Ícone de Play com rotação e escala no hover */
-  .play-icon {
-    position: relative;
-    transform: scale(0);
-    transition: transform 0.3s ease-in-out;
-    color: white;
-    font-size: 1.5rem;
-  }
-  
-  .group:hover .play-icon {
-    transform: scale(1);
-  }
-  
-  /* Animação de rotação */
-  @keyframes spin-slow {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  /* Efeito giratório no hover */
-  .group:hover .animate-spin-slow {
-    animation: spin-slow 0.4s linear infinite;
-  }
-  
-  /* Media Queries */
-  @media (max-width: 768px) {
-    .provider-header {
-      flex-wrap: nowrap; /* Mantém os elementos na mesma linha */
-    }
-  
-    .game-grid {
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .provider-title {
-      font-size: 1.2rem; /* Reduz tamanho da fonte para telas pequenas */
-    }
-  
-    .provider-button {
-      padding: 6px 12px; /* Ajusta o botão para caber melhor */
-      font-size: 0.875rem; /* Reduz a fonte do botão */
-    }
-  
-    .game-grid {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
-  
-    .game-card {
-      height: 140px;
-    }
-  }
-  
+}
+
+.group:hover .animate-spin-slow {
+  animation: spin-slow 0.4s linear infinite;
+}

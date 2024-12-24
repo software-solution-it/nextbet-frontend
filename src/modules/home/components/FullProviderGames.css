@@ -1,0 +1,72 @@
+/* FullProviderGames.css */
+.main-container {
+    min-height: 100vh; /* Garante que o conteúdo ocupe toda a altura da tela */
+  }
+  
+/* Transição geral para o grid de jogos */
+.game-grid {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+  
+  /* Classe para iniciar a transição de saída (desaparecer para a direita) */
+  .game-grid.fade-out {
+    opacity: 0;
+    transform: translateX(20px); /* Pequeno deslocamento para a direita */
+  }
+  
+  /* Classe para iniciar a transição de entrada (aparecer da esquerda) */
+  .game-grid.fade-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Animação opcional para os itens dos jogos */
+  .game-item {
+    opacity: 0;
+    transform: translateX(-20px); /* Pequeno deslocamento para a esquerda */
+    animation: slideIn 0.4s forwards;
+  }
+  
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+
+  .empty-star,
+.filled-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Estrela Vazia */
+.empty-star {
+  color: #ccc;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.empty-star.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Estrela Preenchida */
+.filled-star {
+  color: gold;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.filled-star.active {
+  opacity: 1;
+  transform: scale(1);
+}

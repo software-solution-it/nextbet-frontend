@@ -1,0 +1,22 @@
+/* Banner Desktop só aparece >= md (768px) */
+.banner-desktop {
+    display: none; /* por padrão fica escondido no mobile */
+  }
+  
+  @media (min-width: 768px) {
+    .banner-desktop {
+      display: block; /* aparece no desktop/tablet */
+    }
+  }
+  
+  /* Banner Mobile só aparece < md (768px) */
+  .banner-mobile {
+    display: block; /* por padrão aparece no mobile */
+  }
+  
+  @media (min-width: 768px) {
+    .banner-mobile {
+      display: none; /* some no desktop/tablet */
+    }
+  }
+  

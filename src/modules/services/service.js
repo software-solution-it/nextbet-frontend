@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://api.nextbet.games';
+const API_BASE_URL = 'http://localhost:2764';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -65,25 +65,108 @@ export const getGameProviders = async () => {
   }
 };
 
-export const getGamesByProvider = async (distribution) => {
+export const getGamesByProvider = async (
+  offset = 0,
+  limit = 6,
+  isHot = null,
+  searchTerm = null,
+  isNew = null,
+  isLive = null,
+  rewardsFlag = null
+) => {
   try {
-    if (!distribution) {
-      throw new Error("O parâmetro 'distribution' é obrigatório.");
-    }
+    const buildParams = (options) => {
+      const params = new URLSearchParams({
+        offset: options.offset || 0,
+        limit: options.limit || 6,
+      });
 
-    // Faz a chamada para obter os jogos de um provedor específico
-    const response = await api.post(`/games/list?distribution=${distribution}`);
+      if (options.isHot !== null) params.append("is_hot", options.isHot);
+      if (options.isNew !== null) params.append("is_new", options.isNew);
+      if (options.isLive !== null) params.append("is_live", options.isLive);
+      if (options.rewardsFlag !== null)
+        params.append("rewards_flag", options.rewardsFlag);
+      if (options.searchTerm && options.searchTerm.trim() !== "") {
+        params.append("search", options.searchTerm.trim());
+      }
 
-    const games = response.data?.data || [];
-    return games; // Retorna a lista de jogos
+      return params;
+    };
+
+    // Monta os parâmetros para a chamada de jogos
+    const params = buildParams({
+      offset,
+      limit,
+      isHot,
+      isNew,
+      isLive,
+      rewardsFlag,
+      searchTerm,
+    });
+
+    // Faz a chamada para obter os jogos agrupados por provedores
+    const response = await api.post(`/games/list?${params.toString()}`);
+    const groupedGames = response.data?.result || {};
+
+    // Processa o resultado para calcular o total de jogos e retornar os dados no formato esperado
+    const result = Object.entries(groupedGames).map(([providerName, data]) => ({
+      providerName: data.providerName,
+      games: data.games,
+      totalGames: data.totalGames,
+    }));
+
+    // Retorna os jogos agrupados por provedores
+    return { result };
   } catch (error) {
     console.error(
-      `Erro ao buscar jogos para o provedor ${distribution}:`,
+      "Erro ao buscar jogos agrupados por provedores:",
       error.response?.data || error.message
     );
+    return { result: [] }; // Retorna um array vazio em caso de erro
+  }
+};
+
+
+
+
+export const addGameToFavorites = async (gameId) => {
+  try {
+    const response = await api.post('/member/favourite', {
+      gameId,
+      action: 'add',
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao adicionar jogo aos favoritos:', error.response?.data || error.message);
     throw error;
   }
 };
+
+export const getFavoriteGames = async () => {
+  try {
+    const response = await api.get('/member/favourite/list');
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao listar jogos favoritos:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+
+export const removeGameFromFavorites = async (gameId) => {
+  try {
+    const response = await api.post('/member/favourite', {
+      gameId,
+      action: 'remove',
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao remover jogo dos favoritos:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+
 
 export const getGameProvider = async () => {
   try {

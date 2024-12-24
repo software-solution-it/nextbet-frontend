@@ -1,0 +1,120 @@
+/* Configurações padrão do contêiner do carrossel */
+.slick-list {
+  position: relative;
+  overflow: hidden;
+}
+
+.slick-track {
+  display: flex; /* Garante que os slides estejam em um flex container */
+  gap: 20px; /* Espaçamento de 20px entre os slides */
+}
+
+
+/* Gradientes laterais (apenas para telas médias e grandes) */
+@media (min-width: 768px) {
+  .slick-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(13, 18, 27, 1), rgba(26, 32, 44, 0));
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .slick-list::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(13, 18, 27, 1), rgba(26, 32, 44, 0));
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+
+/* Cartões */
+.card {
+  width: 300px;
+  height: 400px;
+  background: linear-gradient(135deg, #6e7dff, #56c0c6);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Efeito ao passar o mouse (somente para md e lg) */
+@media (min-width: 768px) {
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* Botões nos cartões */
+.card button {
+  background-color: #ffffff;
+  color: #56c0c6;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #56c0c6;
+  color: white;
+}
+
+/* Responsividade para md e lg */
+@media (min-width: 768px) {
+  .card {
+    width: 250px;
+    height: 350px;
+  }
+}
+
+/* Ajustes de slides (somente para md e lg) */
+@media (min-width: 768px) {
+  .slick-slide:not(.slick-center) {
+    opacity: 0.6;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .slick-center .slick-slide {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Navegação */
+.slick-prev, .slick-next {
+  z-index: 3;
+}
+
+/* Gradientes específicos para md e lg */
+.card-daily {
+  background: linear-gradient(135deg, #6e7dff, #56c0c6) !important;
+}
+
+.card-monthly {
+  background: linear-gradient(135deg, #f54b64, #ff7f50) !important;
+}
+
+.card-update {
+  background: linear-gradient(135deg, #8a2be2, #ffd700) !important;
+}

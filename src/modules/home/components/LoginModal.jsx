@@ -26,12 +26,6 @@ const LoginModal = ({ isOpen, onClose, isRegistering, setIsRegistering, onLogin 
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleClose = () => {
-    setIsRecoveringPassword(false);
-    setIsRegistering(false);
-    onClose();
-  };
-
   const handleLogin = async () => {
     // Limpa mensagem de erro
     setErrorMessage("");
@@ -39,15 +33,15 @@ const LoginModal = ({ isOpen, onClose, isRegistering, setIsRegistering, onLogin 
     try {
       const response = await postMemberLogin({ email: inputValue, password });
       if (response.data.status) {
-        const uid = response.headers['id'];
+        const uid = response.headers["id"];
         if (uid) {
-          sessionStorage.setItem('Uid', uid);
+          sessionStorage.setItem("Uid", uid);
         }
         // Simula login bem-sucedido
         onLogin();
         onClose();
       } else {
-        setErrorMessage("E-mail ou senha inválido.");
+        setErrorMessage("E-mail ou senha inválidos.");
       }
     } catch (error) {
       console.error("Erro ao tentar login:", error);
@@ -60,13 +54,16 @@ const LoginModal = ({ isOpen, onClose, isRegistering, setIsRegistering, onLogin 
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-      onClick={handleClose}
+      onClick={onClose} // Corrigido para usar `onClose`
     >
       <div
         className="bg-gray-800 text-white rounded-lg w-full max-w-md p-6 shadow-lg relative mx-4 sm:mx-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={handleClose} className="absolute top-2 right-2 text-white">
+        <button
+          onClick={onClose} // Corrigido para usar `onClose`
+          className="absolute top-2 right-2 text-white"
+        >
           <FaTimes />
         </button>
         <div className="flex justify-center mb-6">
@@ -107,7 +104,7 @@ const LoginModal = ({ isOpen, onClose, isRegistering, setIsRegistering, onLogin 
             <p className="text-sm text-center mb-6">
               Crie uma conta preenchendo as informações abaixo.
             </p>
-            <RegistrationForm onClose={handleClose} />
+            <RegistrationForm onClose={onClose} />
             <p
               className="text-sm text-center mt-4 text-gray-300 hover:text-white transition cursor-pointer"
               onClick={() => setIsRegistering(false)}
@@ -181,7 +178,7 @@ LoginModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   isRegistering: PropTypes.bool.isRequired,
-  setIsRegistering: PropTypes.func.isRequired,
+  setIsRegistering: PropTypes.func,
   onLogin: PropTypes.func.isRequired,
 };
 
