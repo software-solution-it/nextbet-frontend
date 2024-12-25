@@ -1,4 +1,8 @@
 import React from "react";
+import FirstDeposit from "../../../../public/images/Site/1716294916711879793_h5activity50.jpg"
+import SecondDeposit from "../../../../public/images/Site/1716294929449882479_h5activity15.jpg"
+import ThrdDeposit from "../../../../public/images/Site/1716294940312358399_h5activity10.jpg"
+import FourDeposit from "../../../../public/images/Site/1716294951553438926_h5activity6.jpg"
 
 const PromotionPage = ({ onPromotionClick }) => {
     const promotions = [
@@ -9,7 +13,7 @@ const PromotionPage = ({ onPromotionClick }) => {
             "A fim de agradecer a sua confiança e apoio no BetFiery, seu primeiro valor de depósito bem-sucedido de mais de R$100, o NextBet lhe dará um bônus grátis de 50% do valor do depósito, sinceramente, desejo você ganhar mais! Uma vez feito seu depósito, o bônus será automaticamente creditado em sua conta. Verifique no sistema as mensagens enviadas a você.",
           date: "Começou às 2024-04-15",
           status: "Em curso",
-          image: "https://static.betfiery5.com/1716294916711879793_h5activity50.jpg",
+          image: {FirstDeposit},
           badge: "HOT",
           requisitos: [
             { requisito: "50 ≤ Quantia < 100", bonus: "10% De Bônus" },
@@ -30,7 +34,7 @@ const PromotionPage = ({ onPromotionClick }) => {
             "Ofereça aos usuários do aplicativo descontos de recarga super altos para ajudá-lo a iniciar sua jornada para a riqueza com o Betfiery!",
           date: "Começou às 2024-04-15",
           status: "Em curso",
-          image: "https://static.betfiery5.com/1716294929449882479_h5activity15.jpg",
+          image: {SecondDeposit},
           badge: "exclusive",
           requisitos: [
             { requisito: "50 ≤ Quantia ＜ 100", bonus: "4% De Bônus" },
@@ -60,7 +64,7 @@ const PromotionPage = ({ onPromotionClick }) => {
           ],
           date: "Começou às 2024-04-15",
           status: "Em curso",
-          image: "https://static.betfiery5.com/1716294940312358399_h5activity10.jpg",
+          image: {ThrdDeposit},
         },
         {
           id: 4,
@@ -76,7 +80,7 @@ const PromotionPage = ({ onPromotionClick }) => {
           ],
           date: "Começou às 2024-04-15",
           status: "Em curso",
-          image: "https://static.betfiery5.com/1716294951553438926_h5activity6.jpg",
+          image: {FourDeposit},
         },
       ];
 

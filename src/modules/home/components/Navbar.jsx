@@ -136,7 +136,8 @@ const Navbar = forwardRef(
         {/* Modal de Login/Cadastro */}
         {isLoginModalOpen && (
           <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+            style={{zIndex:998}}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             onClick={() => setIsLoginModalOpen(false)}
           >
             <LoginModal

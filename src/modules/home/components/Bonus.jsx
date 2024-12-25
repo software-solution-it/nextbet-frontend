@@ -4,6 +4,12 @@ import RewardModal from "./RewardModal"; // Importe o componente RewardModal
 import PropTypes from 'prop-types'; // Importar PropTypes para validação de props
 import BonusLoginModal from "./BonusLoginModal";
 import Roulete from "./Rolete";
+import Reward from '../../../../public/images/Site/recharge-package-reward-center-icon-6aabbb44.png';
+import Coin from '../../../../public/images/Site/vip_daily-3248919c.png';
+import Troph from '../../../../public/images/Site/vip_upgrade-8e611e0d.png';
+import VipMonthly from '../../../../public/images/Site/vip_monthly-92898e53.png';
+import HandCoin from '../../../../public/images/Site/course2-2f21a672.png';
+import DrawActivity from '../../../../public/images/Site/draw-activity-icon-556bd2fa.png';
 
 const rewards = [
   {
@@ -11,7 +17,7 @@ const rewards = [
     description: "Disponível em:",
     timer: "00:06:10",
     button: "Vai",
-    icon: "https://betfiery5.com/assets/recharge-package-reward-center-icon-6aabbb44.png",
+    icon: Reward,
     hasModal: true, // Adicionado para indicar que este item abre o modal
   },
   {
@@ -19,7 +25,7 @@ const rewards = [
     description: "Receba uma vez por dia",
     hasModalVip: true,
     button: "Vai",
-    icon: "https://betfiery5.com/assets/vip_daily-3248919c.png",
+    icon: Coin,
   },
   /*{
     title: "Cashback",
@@ -31,7 +37,7 @@ const rewards = [
     title: "Presente Mensal VIP",
     
     description: "Contagem regressiva: 305:34:25",
-    icon: "https://betfiery5.com/assets/vip_upgrade-8e611e0d.png",
+    icon: Troph,
     hasVipCallback: true, // Adicionado para indicar que este item chama o callback VIP
   },
   {
@@ -39,27 +45,21 @@ const rewards = [
     description: "Depósito: 0% Aposta: 0%",
     
     hasVipCallback: true, // Adicionado para indicar que este item chama o callback VIP
-    icon: "https://betfiery5.com/assets/vip_monthly-92898e53.png",
+    icon: VipMonthly,
   },
   {
     title: "Convidar as recompensas",
     description: "Compartilhe convites e ganhe recompensas!",
     
-    icon: "https://betfiery5.com/assets/course2-2f21a672.png",
+    icon: HandCoin,
     hasInviteCallback: true, // Adiciona uma propriedade indicando que chama o InviteComponent
   },
-  /*{
-    title: "Roda Da Fortuna",
-    description: "0/0",
-    icon: "https://betfiery5.com/assets/wheel_activity-cc7e4a72.png",
-  },
-  */
   {
     title: "Giro da Sorte",
     
     hasRouleteCallBack: true,
     description: "Ganhe iPhone & bonificações!",
-    icon: "https://betfiery5.com/assets/draw-activity-icon-556bd2fa.png",
+    icon: DrawActivity,
   },
 ];
 

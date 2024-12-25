@@ -1,4 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
+import Cash5KRoulete from '../../../../public/images/Site/Roulete/1734332617719625564_cash.png'
+import Coin20 from '../../../../public/images/Site/Roulete/1734332706568783332_coin3.png'
+import IPhone from '../../../../public/images/Site/Roulete/1734332777653433513_iphone.png'
+import Coin1K from '../../../../public/images/Site/Roulete/1734332617719625564_cash.png'
+import Coin50 from '../../../../public/images/Site/Roulete/1734332872127183549_coin3.png'
+import Cash10k from '../../../../public/images/Site/Roulete/1734333127897548121_cash.png'
+import Cash5 from '../../../../public/images/Site/Roulete/1734333154857471490_coin2.png'
+import Cash3000 from '../../../../public/images/Site/Roulete/1734333271938219654_cash.png'
+import Cash100 from '../../../../public/images/Site/Roulete/1734333374504918899_coin.png'
+import Cash1 from '../../../../public/images/Site/Roulete/1734333360165094010_1111.png'
+import Coin10 from '../../../../public/images/Site/Roulete/1734776624784905900_10.png'
+import Coin2 from '../../../../public/images/Site/Roulete/1734776513688632188_2x5.png'
+import Coin5 from '../../../../public/images/Site/Roulete/1734776663364520896_2x5.png'
+
+
+import BgRoulete from '../../../../public/images/Site/Roulete/sodoku-box-bg-1f06f498.png'
+import BgRouleteEffect from '../../../../public/images/Site/Roulete/bg-4b8533ab.png'
+import BgBoxEffect from '../../../../public/images/Site/Roulete/sudoku-star-c038b56d.png'
+import GiftBox from '../../../../public/images/Site/Roulete/sudoku-gift-box-0183ef19.png'
+
+
+import BgButton from '../../../../public/images/Site/Roulete/play-btn-bg-94106e67.png'
+
 
 const Roulette = ({ onClose }) => {
   const squareSize = 60;
@@ -6,18 +29,18 @@ const Roulette = ({ onClose }) => {
   const gap = 16;
 
   const items = [
-    { image: "https://static.betfiery5.com/1734332617719625564_cash.png", text: "R$ 5,00K" },
-    { image: "https://static.betfiery5.com/1734332706568783332_coin3.png", text: "R$ 20,00" },
-    { image: "https://static.betfiery5.com/1734332777653433513_iphone.png", text: "Iphone 16" },
-    { image: "https://static.betfiery5.com/1734332826839253202_coin4.png", text: "R$ 1,00K" },
-    { image: "https://static.betfiery5.com/1734332872127183549_coin3.png", text: "R$ 50,00" },
-    { image: "https://static.betfiery5.com/1734332999373398267_coin1.png", text: "R$ 2,00" },
-    { image: "https://static.betfiery5.com/1734333127897548121_cash.png", text: "10000 BRL" },
-    { image: "https://static.betfiery5.com/1734333154857471490_coin2.png", text: "R$ 10,00" },
-    { image: "https://static.betfiery5.com/1734333220496634248_coin1.png", text: "R$ 5,00" },
-    { image: "https://static.betfiery5.com/1734333271938219654_cash.png", text: "3000 BRL" },
-    { image: "https://static.betfiery5.com/1734333374504918899_coin.png", text: "R$ 100,00" },
-    { image: "https://static.betfiery5.com/1734333360165094010_1111.png", text: "R$ 1,00" },
+    { image: Cash5KRoulete, text: "R$ 5,00K" },
+    { image: Coin20, text: "R$ 20,00" },
+    { image: IPhone, text: "Iphone 16" },
+    { image: Coin1K, text: "R$ 1,00K" },
+    { image: Coin50, text: "R$ 50,00" },
+    { image: Coin2, text: "R$ 2,00" },
+    { image: Cash10k, text: "10000 BRL" },
+    { image: Coin10, text: "R$ 10,00" },
+    { image: Coin5, text: "R$ 5,00" },
+    { image: Cash3000, text: "3000 BRL" },
+    { image: Cash100, text: "R$ 100,00" },
+    { image: Cash1, text: "R$ 1,00" },
   ];
 
   const positions = [
@@ -158,14 +181,14 @@ const Roulette = ({ onClose }) => {
         style={{
           width: `${containerSize}px`,
           height: `${containerSize}px`,
-          backgroundImage: 'url(https://betfiery5.com/assets/sodoku-box-bg-1f06f498.png)',
+          backgroundImage: `url(${BgRoulete})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
         onClick={(e) => e.stopPropagation()}
       >
         <img
-          src="https://betfiery5.com/assets/bg-4b8533ab.png"
+          src={BgRouleteEffect}
           alt="Background Effect"
           className="absolute"
           style={{
@@ -208,7 +231,7 @@ const Roulette = ({ onClose }) => {
         ))}
 
         <img
-          src="https://betfiery5.com/assets/sudoku-star-c038b56d.png"
+          src={BgBoxEffect}
           alt="Star Effect"
           className="absolute"
           style={{
@@ -237,7 +260,7 @@ const Roulette = ({ onClose }) => {
           onClick={handlePlay}
         >
           <img
-            src="https://betfiery5.com/assets/play-btn-bg-94106e67.png"
+            src={BgButton}
             alt="Play Button"
             style={{
               width: "100%",
@@ -334,7 +357,7 @@ const Roulette = ({ onClose }) => {
 
         {/* Presente com animação para sumir */}
         <img
-  src="https://betfiery5.com/assets/sudoku-gift-box-0183ef19.png"
+  src={GiftBox}
   alt="Gift Box"
   className="absolute transition-all"
   style={{

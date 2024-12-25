@@ -4,6 +4,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./VipComponent.css"
 
+import BonusDaily from '../../../../public/images/Site/Vip/bonus-daily.png'
+import BonusMonthly from '../../../../public/images/Site/Vip/bonus-monthly-835d0d42.png'
+import BonusUpgrade from '../../../../public/images/Site/Vip/bonus-upgrade-d4b50168.png'
+import CashbackOriginal from '../../../../public/images/Site/Vip/cashback-original-dcf57903.png'
+import CashbackSlot from '../../../../public/images/Site/Vip/cashback-slot-de0190ce.png'
+import CashbackSport from '../../../../public/images/Site/Vip/cashback-sports-0bb54663.png'
+import CashbackLiveCassino from '../../../../public/images/Site/Vip/cashback-livecasino-b328d784.png'
+import Avaliation from '../../../../public/images/Site/Vip/safe-674e44e1.webp'
+import MyVip from '../../../../public/images/Site/Level/1701155020290691320_referral-reward-1.png'
+
 // Componentes de seta personalizados
 const SamplePrevArrow = (props) => {
     const { className, style, onClick } = props;
@@ -107,17 +117,17 @@ const VipComponent = () => {
             premios: [
                 {
                     titulo: 'DIÁRIO PRESENTE',
-                    img: 'https://betfiery5.com/assets/images/about-icon/new-vip/bonus-daily.png',
+                    img: BonusDaily,
                     cor: 'blue',
                 },
                 {
                     titulo: 'POR MÊS PRESENTE',
-                    img: 'https://betfiery5.com/assets/bonus-monthly-835d0d42.png',
+                    img: BonusMonthly,
                     cor: 'red',
                 },
                 {
                     titulo: 'ATUALIZAR PRESENTE',
-                    img: 'https://betfiery5.com/assets/bonus-upgrade-d4b50168.png',
+                    img: BonusUpgrade,
                     cor: 'purple',
                 },
             ],
@@ -126,29 +136,29 @@ const VipComponent = () => {
                     titulo: 'Jogos',
                     porcentagem: '0.20%',
                     cor: 'blue',
-                    img: 'https://betfiery5.com/assets/cashback-original-dcf57903.png',
+                    img: CashbackOriginal,
                 },
                 {
                     titulo: 'Slot',
                     porcentagem: '0.20%',
                     cor: 'red',
-                    img: 'https://betfiery5.com/assets/cashback-slot-de0190ce.png',
+                    img: CashbackSlot,
                 },
                 {
                     titulo: 'Sports',
                     porcentagem: '0.00%',
                     cor: 'green',
-                    img: 'https://betfiery5.com/assets/cashback-sports-0bb54663.png',
+                    img: CashbackSport,
                 },
                 {
                     titulo: 'Live Casino',
                     porcentagem: '0.20%',
                     cor: 'yellow',
-                    img: 'https://betfiery5.com/assets/cashback-livecasino-b328d784.png',
+                    img: CashbackLiveCassino,
                 },
             ],
             avaliacao: {
-                icon: 'https://betfiery5.com/assets/safe-674e44e1.webp',
+                icon: Avaliation,
                 descricao: 'Ainda não há avaliação',
                 perguntas: [
                     {
@@ -203,48 +213,48 @@ const VipComponent = () => {
             premios: [
                 {
                     titulo: 'DIÁRIO PRESENTE',
-                    img: 'https://betfiery5.com/assets/images/about-icon/new-vip/bonus-daily.png',
+                    img: BonusDaily,
                     cor: 'blue',
                 },
                 {
                     titulo: 'POR MÊS PRESENTE',
-                    img: 'https://betfiery5.com/assets/bonus-monthly-835d0d42.png',
+                    img: BonusMonthly,
                     cor: 'red',
                 },
                 {
                     titulo: 'ATUALIZAR PRESENTE',
-                    img: 'https://betfiery5.com/assets/bonus-upgrade-d4b50168.png',
+                    img: BonusUpgrade,
                     cor: 'purple',
                 },
             ],
             cashback: [
                 {
                     titulo: 'Jogos',
-                    porcentagem: '0.25%',
+                    porcentagem: '0.20%',
                     cor: 'blue',
-                    img: 'https://betfiery5.com/assets/cashback-original-dcf57903.png',
+                    img: CashbackOriginal,
                 },
                 {
                     titulo: 'Slot',
-                    porcentagem: '0.25%',
+                    porcentagem: '0.20%',
                     cor: 'red',
-                    img: 'https://betfiery5.com/assets/cashback-slot-de0190ce.png',
+                    img: CashbackSlot,
                 },
                 {
                     titulo: 'Sports',
-                    porcentagem: '0.05%',
+                    porcentagem: '0.00%',
                     cor: 'green',
-                    img: 'https://betfiery5.com/assets/cashback-sports-0bb54663.png',
+                    img: CashbackSport,
                 },
                 {
                     titulo: 'Live Casino',
-                    porcentagem: '0.25%',
+                    porcentagem: '0.20%',
                     cor: 'yellow',
-                    img: 'https://betfiery5.com/assets/cashback-livecasino-b328d784.png',
+                    img: CashbackLiveCassino,
                 },
             ],
             avaliacao: {
-                icon: 'https://betfiery5.com/assets/safe-674e44e1.webp',
+                icon: Avaliation,
                 descricao: 'Ainda não há avaliação',
                 perguntas: [
                     {
@@ -309,9 +319,9 @@ const VipComponent = () => {
                     </span>
 
                     <img
-                        src="https://betfiery5.com/assets/vip-0-baf66274.png"
+                        src={MyVip}
                         alt="VIP 0 Icon"
-                        className="w-16 h-16 absolute right-5 top-5"
+                        className="w-16 absolute right-5 top-5"
                     />
                 </div>
 

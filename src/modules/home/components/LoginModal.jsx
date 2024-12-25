@@ -53,10 +53,12 @@ const LoginModal = ({ isOpen, onClose, isRegistering, setIsRegistering, onLogin 
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+    style={{zIndex:998}}
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       onClick={onClose} // Corrigido para usar `onClose`
     >
       <div
+          style={{zIndex:998}}
         className="bg-gray-800 text-white rounded-lg w-full max-w-md p-6 shadow-lg relative mx-4 sm:mx-auto"
         onClick={(e) => e.stopPropagation()}
       >

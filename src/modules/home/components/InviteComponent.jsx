@@ -3,6 +3,12 @@ import { FaCopy } from "react-icons/fa";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Level1 from '../../../../public/images/Site/Level/1701155020290691320_referral-reward-1.png'
+import Level2 from '../../../../public/images/Site/Level/1701155040384603896_referral-reward-2.png'
+import Level3 from '../../../../public/images/Site/Level/1701155060786024978_referral-reward-3.png'
+
+
+
 
 const InviteComponent = () => {
   const bonusData = [
@@ -10,21 +16,20 @@ const InviteComponent = () => {
       title: "Convide 3 amigos",
       progress: "0/3",
       reward: "R$ 10,00",
-      image: "https://static.betfiery5.com/1701155020290691320_referral-reward-1.png",
+      image: {Level1},
     },
     {
       title: "Convide 10 amigos",
       progress: "0/10",
       reward: "R$ 30,00",
-      image: "https://static.betfiery5.com/1701155040384603896_referral-reward-2.png",
+      image: {Level2},
     },
     {
       title: "Convide 25 amigos",
       progress: "0/25",
       reward: "R$ 60,00",
-      image: "https://static.betfiery5.com/1701155060786024978_referral-reward-3.png",
+      image: {Level3},
     },
-    // Adicione mais itens aqui, conforme necessário...
   ];
 
   const settings = {

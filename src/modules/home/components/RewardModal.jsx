@@ -1,7 +1,14 @@
 // RewardModal.js
 import React from "react";
+import RewardTitle from '../../../../public/images/Site/RewardModal/1709106918833425031_55.png'
+import Dazzing from '../../../../public/images/Site/RewardModal/dazzing.png'
+import BgTitle from '../../../../public/images/Site/RewardModal/recharge-package-discount-bg-76ac4e9e.png'
+import BgCountDown from '../../../../public/images/Site/RewardModal/recharge-package-countdown-bg-401a7092.png'
+import BgBox from '../../../../public/images/Site/RewardModal/recharge-package-box-bg-0a268858.png'
+import ButtonFooter from '../../../../public/images/Site/RewardModal/recharge-package-btn-bg-851e56e4.png'
+import PixImage from '../../../../public/images/Site/RewardModal/1700218482328189002_20231117-185256.png'
 
-const RewardModal = ({ onClose, timeLeft, formatTime }) => {
+const RewardModal = ({ onClose, timeLeft, formatTime, onDepositClick }) => {
   return (
     <div
       className="fixed inset-0 bg-gray-800 bg-opacity-90 z-50 flex items-center justify-center backdrop-blur-md cursor-pointer"
@@ -24,14 +31,14 @@ const RewardModal = ({ onClose, timeLeft, formatTime }) => {
 
         {/* Nova imagem acima da segunda */}
         <img
-          src="https://static.betfiery5.com/1709106918833425031_55%20%282%29.png"
+          src={RewardTitle}
           alt="Nova imagem acima da segunda"
           className="absolute top-[-30%] w-3/6 max-w-xl object-contain"
         />
 
         {/* Imagem que vai rodar atrás */}
         <img
-          src="https://betfiery5.com/assets/dazzling-66070042.png"
+          src={Dazzing}
           alt="Imagem de fundo girando"
           className="absolute top-[-15%] w-full max-w-xl object-contain animate-spin-slow z-0"
         />
@@ -39,7 +46,7 @@ const RewardModal = ({ onClose, timeLeft, formatTime }) => {
         {/* Terceira imagem acima da segunda */}
         <img
           style={{ zIndex: 99 }}
-          src="https://betfiery5.com/assets/recharge-package-discount-bg-76ac4e9e.png"
+          src={BgTitle}
           alt="Imagem de desconto"
           className="absolute top-[-12%] w-4/6 max-w-xl object-contain"
         />
@@ -47,7 +54,7 @@ const RewardModal = ({ onClose, timeLeft, formatTime }) => {
         {/* Segunda imagem no topo */}
         <img
           style={{ zIndex: 100 }}
-          src="https://betfiery5.com/assets/recharge-package-countdown-bg-401a7092.png"
+          src={BgCountDown}
           alt="Imagem de contagem regressiva"
           className="absolute top-[5%] w-2/6 max-w-xl object-contain"
         />
@@ -73,7 +80,7 @@ const RewardModal = ({ onClose, timeLeft, formatTime }) => {
         <div
           style={{ zIndex: 103 }}
           className="absolute bottom-[6%] w-full text-center text-yellow-900 font-bold text-sm sm:text-base md:text-lg cursor-pointer sm:hover:text-yellow-700 transition-colors"
-          onClick={onClose}
+          onClick={onDepositClick}
         >
           <p>Preço especial: R$ 100,00</p>
           <p className="text-xs sm:text-sm line-through text-yellow-800">
@@ -83,7 +90,7 @@ const RewardModal = ({ onClose, timeLeft, formatTime }) => {
 
         {/* Primeira imagem */}
         <img
-          src="https://betfiery5.com/assets/recharge-package-box-bg-0a268858.png"
+          src={BgBox}
           alt="Imagem Modal"
           className="w-5/6 z-50 max-w-xl object-contain"
         />
@@ -91,7 +98,7 @@ const RewardModal = ({ onClose, timeLeft, formatTime }) => {
         {/* Quarta imagem abaixo da primeira */}
         <img
           style={{ zIndex: 67 }}
-          src="https://betfiery5.com/assets/recharge-package-btn-bg-851e56e4.png"
+          src={ButtonFooter}
           alt="Botão de imagem"
           className="absolute bottom-0 w-4/6 max-w-xl object-contain"
         />
@@ -113,10 +120,10 @@ const RewardModal = ({ onClose, timeLeft, formatTime }) => {
           {/* PIX no canto inferior esquerdo com borda verde */}
           <div
             className="absolute bottom-2 left-2 p-2 border-2 border-green-500 rounded-lg flex items-center cursor-pointer sm:hover:border-green-700 transition-colors"
-            onClick={onClose}
+            onClick={onDepositClick}
           >
             <img
-              src="https://static.betfiery5.com/1700218482328189002_20231117-185256.png" // Usando a imagem do PIX fornecida
+              src={PixImage} // Usando a imagem do PIX fornecida
               alt="PIX"
               className="w-16"
             />

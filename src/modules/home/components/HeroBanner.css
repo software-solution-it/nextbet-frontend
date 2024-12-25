@@ -13,6 +13,10 @@
   .banner-mobile {
     display: block; /* por padrão aparece no mobile */
   }
+
+  .swiper{
+    z-index: 0 !important;
+  }
   
   @media (min-width: 768px) {
     .banner-mobile {

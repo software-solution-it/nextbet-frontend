@@ -10,11 +10,13 @@ import {
 } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 
-const BonusVipImg = "https://static.betfiery5.com/1709289830570770672_vvip.png";
-const RecompensasImg = "https://static.betfiery5.com/1711968397041549348_lj.png";
-const Roleta = "https://static.betfiery5.com/1709716981018198741_zp.png";
-const RodaDinheiroDeVoltaImg = "https://static.betfiery5.com/1709289980978577821_fl.png";
+// Se você optar por usar importações
+// import BonusVipSide from '../../../../public/images/Site/SideMenu/1709289830570770672_vvip.png'
+// import RewardsSide from '../../../../public/images/Site/SideMenu/1711968397041549348_lj.png'
+// import RouleteSide from '../../../../public/images/Site/SideMenu/1709716981018198741_zp.png'
+// import CashbackSide from '../../../../public/images/Site/SideMenu/1709289980978577821_fl.png'
 
+// Alternativamente, use caminhos absolutos se as imagens estiverem no diretório public
 const SideMenu = ({
   isMenuOpen,
   closeMenu,
@@ -27,6 +29,12 @@ const SideMenu = ({
   openLoginModal,
 }) => {
   const [promoOpen, setPromoOpen] = useState(true);
+  const [imagesError, setImagesError] = useState({
+    BonusVipImg: false,
+    RecompensasImg: false,
+    Roleta: false,
+    RodaDinheiroDeVoltaImg: false,
+  });
 
   // Função para verificar login e executar ações
   const handleClick = (action) => {
@@ -38,43 +46,60 @@ const SideMenu = ({
     closeMenu();
   };
 
+  // Função para lidar com erros de carregamento de imagens
+  const handleImageError = (imageKey) => {
+    setImagesError((prev) => ({ ...prev, [imageKey]: true }));
+  };
+
   return (
     <aside
       className={`fixed top-0 left-0 h-full bg-gray-900 text-white z-40 pt-16 transition-transform duration-300 ease-in-out transform ${
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
-      } w-60 shadow-lg`}
+      } w-60 shadow-lg overflow-y-auto`} // Adicionado overflow-y-auto
     >
       <div className="flex flex-col gap-1 px-4">
         <div className="mt-1 flex flex-col gap-1">
           {/* Bônus VIP */}
-          <img
-            onClick={() => handleClick(() => setShowVip(true))}
-            src={BonusVipImg}
-            alt="Bônus VIP"
-            className="w-full cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-          />
+          {!imagesError.BonusVipImg && (
+            <img
+              onClick={() => handleClick(() => setShowVip(true))}
+              src="/images/Site/SideMenu/1709289830570770672_vvip.png" // Usando caminho absoluto
+              alt="Bônus VIP"
+              className="w-full cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+              onError={() => handleImageError("BonusVipImg")}
+            />
+          )}
           {/* Recompensas */}
-          <img
-            onClick={() => handleClick(() => setShowBonus(true))}
-            src={RecompensasImg}
-            alt="Centro de Recompensas"
-            className="w-full cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-          />
+          {!imagesError.RecompensasImg && (
+            <img
+              onClick={() => handleClick(() => setShowBonus(true))}
+              src="/images/Site/SideMenu/1711968397041549348_lj.png" // Usando caminho absoluto
+              alt="Centro de Recompensas"
+              className="w-full cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+              onError={() => handleImageError("RecompensasImg")}
+            />
+          )}
           {/* Roleta */}
           <div className="flex gap-1">
-            <img
-              onClick={() => handleClick(onOpenRoulete)}
-              src={Roleta}
-              alt="Roda de Dinheiro"
-              style={{ height: 65, width: "48%" }}
-              className="cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-            />
-            <img
-              src={RodaDinheiroDeVoltaImg}
-              alt="Roda de Dinheiro de Volta"
-              style={{ height: 65, width: "48%" }}
-              className="cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-            />
+            {!imagesError.Roleta && (
+              <img
+                onClick={() => handleClick(onOpenRoulete)}
+                src="/images/Site/SideMenu/1709716981018198741_zp.png" // Usando caminho absoluto
+                alt="Roda de Dinheiro"
+                style={{ height: 65, width: "48%" }}
+                className="cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                onError={() => handleImageError("Roleta")}
+              />
+            )}
+            {!imagesError.RodaDinheiroDeVoltaImg && (
+              <img
+                src="/images/Site/SideMenu/1709289980978577821_fl.png" // Usando caminho absoluto
+                alt="Roda de Dinheiro de Volta"
+                style={{ height: 65, width: "48%" }}
+                className="cursor-pointer transform rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                onError={() => handleImageError("RodaDinheiroDeVoltaImg")}
+              />
+            )}
           </div>
         </div>
 
@@ -171,7 +196,7 @@ const SideMenu = ({
           />
           <span>Instagram</span>
         </button>
-        <button className="flex items-center gap-2 text-[14px] text-gray-200 py-2 px-3 rounded-lg bg-gray-800 hover:bg-[#1a1a2d]/80 hover:border-green-500 border border-transparent transition-colors duration-300 cursor-pointer w-full text-left">
+        <button className="mb-20 flex items-center gap-2 text-[14px] text-gray-200 py-2 px-3 rounded-lg bg-gray-800 hover:bg-[#1a1a2d]/80 hover:border-green-500 border border-transparent transition-colors duration-300 cursor-pointer w-full text-left">
           <span>💬</span>
           <span>Suporte Online</span>
         </button>

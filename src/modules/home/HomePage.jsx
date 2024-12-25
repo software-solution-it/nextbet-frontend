@@ -16,8 +16,16 @@ import InviteComponent from "./components/InviteComponent";
 import Roulete from "./components/Rolete";
 import PromotionPage from "./components/PromotionPage";
 import DiscountPage from "./components/DiscountPage";
+import WalletModal from "./components/WalletModal"
 import BonusLoginModal from "./components/BonusLoginModal";
 import LoginModal from "./components/LoginModal";
+import FirstDeposit from "../../../public/images/Site/1716294916711879793_h5activity50.jpg"
+import SecondDeposit from "../../../public/images/Site/1716294929449882479_h5activity15.jpg"
+import ThrdDeposit from "../../../public/images/Site/1716294940312358399_h5activity10.jpg"
+import FourDeposit from "../../../public/images/Site/1716294951553438926_h5activity6.jpg"
+import BoxGif from "../../../public/images/Site/1715256813754816861_12345678.webp"
+import FreeBonus from "../../../public/images/Site/1698048604148113906_20230915-205926.png"
+
 
 const categories = ["Cassino", "Ao Vivo", "Esportes"];
 const subcategories = ["HOT", "Novos Jogos", "Recompensas", "Live Cassino"];
@@ -37,15 +45,30 @@ const HomePage = () => {
   const [showFullList, setShowFullList] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [walletInitialStep, setWalletInitialStep] = useState(1);
   const [showPromotion, setShowPromotions] = useState(false);
   const [showBonus, setShowBonus] = useState(false);
   const [showRoulete, setShowRoulete] = useState(false);
   const [showVip, setShowVip] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [selectedPromotion, setSelectedPromotion] = useState(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // Estado para o modal de login
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   
-  
+
+  useEffect(() => {
+    // Atualiza o tamanho da janela sempre que ela é redimensionada
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getBottomClass = () => {
+    if (windowWidth <= 640) return "bottom-20"; // Mobile
+    return "bottom-10"; // Desktop
+  };
   const promotions = [
     {
       id: 1,
@@ -54,7 +77,7 @@ const HomePage = () => {
         "A fim de agradecer a sua confiança e apoio no BetFiery, seu primeiro valor de depósito bem-sucedido de mais de R$100, o NextBet lhe dará um bônus grátis de 50% do valor do depósito, sinceramente, desejo você ganhar mais! Uma vez feito seu depósito, o bônus será automaticamente creditado em sua conta. Verifique no sistema as mensagens enviadas a você.",
       date: "Começou às 2024-04-15",
       status: "Em curso",
-      image: "https://static.betfiery5.com/1716294916711879793_h5activity50.jpg",
+      image: FirstDeposit,
       badge: "HOT",
       requisitos: [
         { requisito: "50 ≤ Quantia < 100", bonus: "10% De Bônus" },
@@ -75,7 +98,7 @@ const HomePage = () => {
         "Ofereça aos usuários do aplicativo descontos de recarga super altos para ajudá-lo a iniciar sua jornada para a riqueza com o Betfiery!",
       date: "Começou às 2024-04-15",
       status: "Em curso",
-      image: "https://static.betfiery5.com/1716294929449882479_h5activity15.jpg",
+      image: SecondDeposit,
       badge: "exclusive",
       requisitos: [
         { requisito: "50 ≤ Quantia ＜ 100", bonus: "4% De Bônus" },
@@ -105,7 +128,7 @@ const HomePage = () => {
       ],
       date: "Começou às 2024-04-15",
       status: "Em curso",
-      image: "https://static.betfiery5.com/1716294940312358399_h5activity10.jpg",
+      image: ThrdDeposit,
     },
     {
       id: 4,
@@ -121,7 +144,7 @@ const HomePage = () => {
       ],
       date: "Começou às 2024-04-15",
       status: "Em curso",
-      image: "https://static.betfiery5.com/1716294951553438926_h5activity6.jpg",
+      image: FourDeposit,
     },
   ];
 
@@ -131,7 +154,7 @@ const HomePage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    },4000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -164,6 +187,11 @@ const HomePage = () => {
     setShowRoulete(true);
   };
 
+  const openVipAndCloseBonusModal = () => {
+    setShowVip(true); 
+    setShowBonusModal(false); 
+  };
+
   const handleCloseRoulete = () => {
     setShowRoulete(false);
   };
@@ -171,6 +199,15 @@ const HomePage = () => {
   const openLoginModal = () => {
     setIsLoginModalOpen(true); // Abre o modal de login
     setIsMenuOpen(false)
+  };
+
+  const openWalletModal = (step = 1) => {
+    setShowRewardModal(false); 
+    setIsWalletModalOpen(true); 
+    setWalletInitialStep(step); 
+  };
+  const closeWalletModal = () => {
+    setIsWalletModalOpen(false);
   };
   
   const closeLoginModal = () => {
@@ -327,13 +364,18 @@ const HomePage = () => {
   };
 
   const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
+    const h = Math.floor(seconds / 3600); // Calcula as horas
+    const m = Math.floor((seconds % 3600) / 60); // Calcula os minutos restantes
+    const s = seconds % 60; // Calcula os segundos restantes
+  
+    // Adiciona zero à esquerda se necessário
+    const hh = h < 10 ? `0${h}` : h;
     const mm = m < 10 ? `0${m}` : m;
     const ss = s < 10 ? `0${s}` : s;
-    return `${mm}:${ss}`;
+  
+    return `${hh}:${mm}:${ss}`;
   };
-
+  
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -400,7 +442,7 @@ const HomePage = () => {
           )}
 
 {isLoginModalOpen && (
-  <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+  <div style={{zIndex:999}} className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center">
     <LoginModal
       isOpen={isLoginModalOpen}
       onClose={closeLoginModal}
@@ -426,33 +468,42 @@ const HomePage = () => {
         </div>
         <Footer />
       </div>
-      <div style={{zIndex:999}} className="fixed bottom-20  right-4 flex flex-col space-y-4 items-center">
+      <div
+      className={`fixed ${getBottomClass()} right-4 flex flex-col space-y-10 items-center ${
+        isMenuOpen ? "blur-sm md:blur-none" : ""
+      }`}
+>
         <div
-          className="flex flex-col items-center transition-transform duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
+          className="flex flex-col items-center transition-transform duration-200 ease-in-out  hover:cursor-pointer"
           onClick={openRewardModal}
         >
           <img
-            src="https://static.betfiery5.com/1715256813754816861_12345678.webp"
+            src={BoxGif}
             alt="Imagem 1"
             className="rounded-lg w-16 h-16 object-cover"
           />
-          <span className="text-white text-sm bg-red-700 px-2 py-1 rounded-lg transition-transform duration-200 ease-in-out hover:scale-105 hover:cursor-pointer">
-            {formatTime(timeLeft)}
-          </span>
+<span
+  style={{ bottom: 95, transformOrigin: "center bottom" }}
+  className="absolute text-white text-[10px] bg-purple-600 border border-white px-2 rounded-lg transition-transform duration-200 ease-in-out hover:cursor-pointer"
+>
+  {formatTime(timeLeft)}
+</span>
+
+
         </div>
         <div
-          className="flex flex-col items-center transition-transform duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
+          className="flex flex-col items-center transition-transform duration-200 ease-in-out hover:cursor-pointer"
           onClick={openBonusModal}
         >
         <img
-          src="https://static.betfiery5.com/1698048604148113906_20230915-205926.png"
+          src={FreeBonus}
           alt="Imagem 2"
-          className="rounded-lg w-16 h-16 object-cover transition-transform duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
+          className="rounded-lg w-16 h-16 object-cover transition-transform duration-200 ease-in-out hover:cursor-pointer"
         />
         </div>
         {/* 
         <img
-          src="https://static.betfiery5.com/1698048629837497883_1695196341298196866_688.png"
+          src=""
           alt="Imagem 3"
           className="rounded-lg w-20 h-20 object-cover transition-transform duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
         />
@@ -460,19 +511,29 @@ const HomePage = () => {
       </div>
       {showRewardModal && (
         <RewardModal
-          onClose={closeRewardModal}
-          timeLeft={timeLeft}
-          formatTime={formatTime}
-        />
-      )}
+  onClose={closeRewardModal}
+  timeLeft={timeLeft}
+  formatTime={formatTime}
+  onDepositClick={() => openWalletModal(2)} // Passando o passo 2
+/>
+)}
 
-      {showBonusModal && (
-        <BonusLoginModal
-          onClose={closeBonusModal}
-          timeLeft={timeLeft}
-          formatTime={formatTime}
-        />
-      )}
+{isWalletModalOpen && (
+  <WalletModal
+    isOpen={isWalletModalOpen}
+    onRequestClose={closeWalletModal}
+    initialStep={walletInitialStep} // Passando a prop
+  />
+)}
+
+{showBonusModal && (
+  <BonusLoginModal
+    onClose={closeBonusModal}
+    timeLeft={timeLeft}
+    formatTime={formatTime}
+    onViewVip={openVipAndCloseBonusModal} // Nova prop
+  />
+)}
       {(showModal || isGameLoading) && (
         <div
           className={`fixed top-0 right-0 w-full h-full bg-gray-900 z-50 transform transition-transform duration-500 ${

@@ -3,16 +3,15 @@ import ReactModal from "react-modal";
 import { getMemberBalance, postGenerationPaymentDigitopay } from "../../services/service"; // Importar os serviços necessários
 import InputMask from "react-input-mask";
 
-const WalletModal = ({ isOpen, onRequestClose }) => {
+const WalletModal = ({ isOpen, onRequestClose, initialStep = 1 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(initialStep);
 
   // Estados para o conteúdo do depósito
   const [timeLeft, setTimeLeft] = useState(600);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [depositValue, setDepositValue] = useState("");
-
 
   const [pixKeyType, setPixKeyType] = useState(""); // Tipo de chave PIX
   const [userName, setUserName] = useState(""); // Nome do usuário
@@ -51,13 +50,15 @@ const WalletModal = ({ isOpen, onRequestClose }) => {
 
   useEffect(() => {
     if (isOpen) {
+      setCurrentStep(initialStep) 
       setIsVisible(true);
       setTimeout(() => setIsAnimating(true), 10);
     } else {
+      setCurrentStep(1) 
       setIsAnimating(false);
       setTimeout(() => setIsVisible(false), 300);
     }
-  }, [isOpen]);
+  }, [isOpen, initialStep]);
 
   const handleWithdrawValueChange = (value) => {
     setWithdrawValue(value.replace(",", ".")); // Substitui vírgulas por pontos, se necessário
